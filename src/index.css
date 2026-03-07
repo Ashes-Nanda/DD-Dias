@@ -67,13 +67,7 @@
     scrollbar-width: none;
   }
 
-  /* Standard GSAP SplitText invisible state */
-  .word,
-  .char,
-  .line {
-    opacity: 0;
-    transform: translateY(20px);
-  }
+
 }
 
 /* Custom Selection */
