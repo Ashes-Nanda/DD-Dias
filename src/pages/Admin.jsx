@@ -74,7 +74,7 @@ export default function Admin() {
             organisation: expert.organisation || '',
             bio: expert.bio || '',
             linkedin_url: expert.linkedin_url || '',
-            twitter_url: expert.twitter_url || '',
+            instagram_handle: expert.instagram_handle || '',
             website_url: expert.website_url || ''
         });
         setEditPressLinks(expert.press_links || []);
@@ -258,8 +258,8 @@ export default function Admin() {
                                         <input type="url" value={editForm.linkedin_url} onChange={e => setEditForm({ ...editForm, linkedin_url: e.target.value })} className="w-full border border-border rounded-xl px-4 py-2 font-sans text-sm" />
                                     </div>
                                     <div className="sm:col-span-2">
-                                        <label className="block text-xs font-bold text-text-mid uppercase tracking-wider mb-1">Twitter URL</label>
-                                        <input type="url" value={editForm.twitter_url} onChange={e => setEditForm({ ...editForm, twitter_url: e.target.value })} className="w-full border border-border rounded-xl px-4 py-2 font-sans text-sm" />
+                                        <label className="block text-xs font-bold text-text-mid uppercase tracking-wider mb-1">Instagram Handle</label>
+                                        <input type="text" value={editForm.instagram_handle} onChange={e => setEditForm({ ...editForm, instagram_handle: e.target.value })} className="w-full border border-border rounded-xl px-4 py-2 font-sans text-sm" placeholder="@handle" />
                                     </div>
                                     <div className="sm:col-span-2">
                                         <label className="block text-xs font-bold text-text-mid uppercase tracking-wider mb-1">Website URL</label>
