@@ -11,9 +11,9 @@ export default function Home() {
     return (
         <div className="w-full relative bg-background">
             {/* Hero Section */}
-            <section className="relative min-h-[90vh] flex flex-col justify-center px-6 pt-32 pb-16 overflow-hidden bg-background">
-                <div className="max-w-7xl mx-auto w-full z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-                    <div className="max-w-3xl">
+            <section className="relative min-h-[85vh] flex flex-col justify-center px-6 pt-32 pb-16 overflow-hidden bg-background">
+                <div className="max-w-7xl mx-auto w-full z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-12 lg:items-stretch items-center">
+                    <div className="max-w-3xl flex flex-col justify-center py-4 lg:py-8">
                         <h1
                             className="text-primary font-serif font-bold text-5xl md:text-6xl lg:text-7xl xl:text-[4.5rem] leading-[1.1] md:leading-[1.1] tracking-tight"
                         >
@@ -36,8 +36,8 @@ export default function Home() {
                         </div>
                     </div>
 
-                    <div className="relative mt-8 lg:mt-0 w-full hidden md:block">
-                        <div className="aspect-[4/3] sm:aspect-square lg:aspect-[4/5] rounded-[2.5rem] overflow-hidden relative shadow-lg">
+                    <div className="relative mt-8 lg:mt-0 w-full hidden md:block lg:h-full">
+                        <div className="w-full h-full aspect-[4/3] sm:aspect-square lg:aspect-auto rounded-[2.5rem] overflow-hidden relative shadow-lg">
                             <img
                                 src="https://images.unsplash.com/photo-1573164574572-cb89e39749b4?q=80&w=1000&auto=format&fit=crop"
                                 alt="Professional woman speaking confidently"

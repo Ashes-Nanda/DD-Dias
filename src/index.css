@@ -5,19 +5,29 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    font-size: 75%;
+    /* Scales the entire rem-based Tailwind UI down to 75% */
+  }
+
   body {
     @apply bg-background text-text-dark font-sans antialiased text-base leading-relaxed;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-serif text-primary tracking-tight font-bold m-0 p-0;
   }
 
   p {
     @apply m-0 p-0;
   }
-  
+
   a {
     @apply text-inherit no-underline;
   }
@@ -43,20 +53,24 @@
   .clip-bottom {
     clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
   }
+
   .clip-full {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
-  
+
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
   .hide-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  
+
   /* Standard GSAP SplitText invisible state */
-  .word, .char, .line {
+  .word,
+  .char,
+  .line {
     opacity: 0;
     transform: translateY(20px);
   }

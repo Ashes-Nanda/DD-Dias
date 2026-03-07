@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, MapPin, Briefcase } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Linkedin, Instagram, Globe } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import ExpertCard from '../components/ExpertCard';
 import Button from '../components/Button';
@@ -189,17 +189,17 @@ export default function ExpertProfile() {
                             <div className="flex flex-wrap gap-4">
                                 {expertData.linkedin && (
                                     <a href={expertData.linkedin} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-5 py-3 border border-border bg-white rounded-xl font-sans text-sm font-medium hover:border-primary/50 transition-colors">
-                                        <Briefcase size={18} className="text-blue-600" /> LinkedIn Profile
+                                        <Linkedin size={18} className="text-blue-600" /> LinkedIn Profile
                                     </a>
                                 )}
                                 {expertData.instagram && (
-                                    <a href={`https://instagram.com/${expertData.instagram}`} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-5 py-3 border border-border bg-white rounded-xl font-sans text-sm font-medium hover:border-primary/50 transition-colors">
-                                        <MapPin size={18} className="text-pink-600" /> Instagram Handle
+                                    <a href={expertData.instagram.includes('http') ? expertData.instagram : `https://instagram.com/${expertData.instagram.replace('@', '')}`} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-5 py-3 border border-border bg-white rounded-xl font-sans text-sm font-medium hover:border-primary/50 transition-colors">
+                                        <Instagram size={18} className="text-pink-600" /> Instagram Profile
                                     </a>
                                 )}
                                 {expertData.website && (
                                     <a href={expertData.website} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-5 py-3 border border-border bg-white rounded-xl font-sans text-sm font-medium hover:border-primary/50 transition-colors">
-                                        <ExternalLink size={18} className="text-slate-600" /> Personal Website
+                                        <Globe size={18} className="text-slate-600" /> Personal Website
                                     </a>
                                 )}
                             </div>

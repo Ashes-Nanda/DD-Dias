@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Shield, CheckCircle, XCircle, Trash2, Eye, EyeOff, Edit3, X } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import { cn } from '../lib/utils';
 
 export default function Admin() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -11,6 +12,7 @@ export default function Admin() {
     const [hidden, setHidden] = useState([]);
 
     const [editingExpert, setEditingExpert] = useState(null);
+    const [editForm, setEditForm] = useState(null);
     const [editPressLinks, setEditPressLinks] = useState([]);
 
     useEffect(() => {
@@ -66,16 +68,29 @@ export default function Admin() {
 
     const openEditModal = (expert) => {
         setEditingExpert(expert);
+        setEditForm({
+            full_name: expert.full_name || '',
+            title: expert.title || '',
+            organisation: expert.organisation || '',
+            bio: expert.bio || '',
+            linkedin_url: expert.linkedin_url || '',
+            twitter_url: expert.twitter_url || '',
+            website_url: expert.website_url || ''
+        });
         setEditPressLinks(expert.press_links || []);
     };
 
-    const savePressLinks = async () => {
-        const { error } = await supabase.from('experts').update({ press_links: editPressLinks }).eq('id', editingExpert.id);
+    const saveChanges = async () => {
+        const { error } = await supabase.from('experts').update({
+            ...editForm,
+            press_links: editPressLinks
+        }).eq('id', editingExpert.id);
+
         if (!error) {
             setEditingExpert(null);
             fetchExperts();
         } else {
-            alert("Failed to update press links.");
+            alert("Failed to update profile.");
         }
     };
 
@@ -193,7 +208,7 @@ export default function Admin() {
                                         <td className="p-4 font-sans text-text-dark text-sm">{expert.city?.[0]}</td>
                                         <td className="p-4 text-right">
                                             <div className="flex justify-end gap-2">
-                                                <button onClick={() => openEditModal(expert)} className="text-text-mid hover:text-primary transition-colors p-1" title="Edit Press Links">
+                                                <button onClick={() => openEditModal(expert)} className="text-text-mid hover:text-primary transition-colors p-1" title="Edit Profile">
                                                     <Edit3 size={18} />
                                                 </button>
                                                 <button onClick={() => handleToggleVisibility(expert.id, expert.status)} className="text-text-mid hover:text-text-dark transition-colors p-1" title={expert.status === 'approved' ? "Hide Profile" : "Show Profile"}>
@@ -211,39 +226,76 @@ export default function Admin() {
                     </div>
                 </div>
 
-                {/* Edit Modal (Press Links specifically as requested in PRD) */}
-                {editingExpert && (
+                {/* Edit Modal (Full Profile Editor) */}
+                {editingExpert && editForm && (
                     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-6">
                         <div className="bg-white rounded-3xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
                             <div className="flex justify-between items-center mb-6">
-                                <h3 className="font-serif text-2xl text-primary font-bold">Edit Press Links: {editingExpert.full_name}</h3>
+                                <h3 className="font-serif text-2xl text-primary font-bold">Edit Profile: {editingExpert.full_name}</h3>
                                 <button onClick={() => setEditingExpert(null)} className="text-text-mid hover:text-text-dark"><X size={24} /></button>
                             </div>
 
                             <div className="space-y-4 mb-8">
-                                {editPressLinks.map((link, idx) => (
-                                    <div key={idx} className="flex gap-4 items-start">
-                                        <div className="flex-1 space-y-2">
-                                            <input type="text" value={link.title} onChange={(e) => {
-                                                const newLinks = [...editPressLinks]; newLinks[idx].title = e.target.value; setEditPressLinks(newLinks);
-                                            }} placeholder="Display Title" className="w-full border border-border rounded-xl px-4 py-2 font-sans text-sm" />
-                                            <input type="url" value={link.url} onChange={(e) => {
-                                                const newLinks = [...editPressLinks]; newLinks[idx].url = e.target.value; setEditPressLinks(newLinks);
-                                            }} placeholder="URL" className="w-full border border-border rounded-xl px-4 py-2 font-sans text-sm" />
-                                        </div>
-                                        <button onClick={() => {
-                                            const newLinks = editPressLinks.filter((_, i) => i !== idx); setEditPressLinks(newLinks);
-                                        }} className="text-red-500 hover:text-red-700 p-2"><Trash2 size={18} /></button>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-xs font-bold text-text-mid uppercase tracking-wider mb-1">Full Name</label>
+                                        <input type="text" value={editForm.full_name} onChange={e => setEditForm({ ...editForm, full_name: e.target.value })} className="w-full border border-border rounded-xl px-4 py-2 font-sans text-sm" />
                                     </div>
-                                ))}
-                                <button onClick={() => setEditPressLinks([...editPressLinks, { title: '', url: '', publisher: '' }])} className="text-sm font-sans font-medium text-primary hover:underline">
-                                    + Add another link
-                                </button>
+                                    <div>
+                                        <label className="block text-xs font-bold text-text-mid uppercase tracking-wider mb-1">Organisation</label>
+                                        <input type="text" value={editForm.organisation} onChange={e => setEditForm({ ...editForm, organisation: e.target.value })} className="w-full border border-border rounded-xl px-4 py-2 font-sans text-sm" />
+                                    </div>
+                                    <div className="sm:col-span-2">
+                                        <label className="block text-xs font-bold text-text-mid uppercase tracking-wider mb-1">Title</label>
+                                        <input type="text" value={editForm.title} onChange={e => setEditForm({ ...editForm, title: e.target.value })} className="w-full border border-border rounded-xl px-4 py-2 font-sans text-sm" />
+                                    </div>
+                                    <div className="sm:col-span-2">
+                                        <label className="block text-xs font-bold text-text-mid uppercase tracking-wider mb-1">Bio</label>
+                                        <textarea value={editForm.bio} onChange={e => setEditForm({ ...editForm, bio: e.target.value })} className="w-full border border-border rounded-xl px-4 py-2 font-sans text-sm min-h-[120px]" />
+                                    </div>
+                                    <div className="sm:col-span-2">
+                                        <label className="block text-xs font-bold text-text-mid uppercase tracking-wider mb-1">LinkedIn URL</label>
+                                        <input type="url" value={editForm.linkedin_url} onChange={e => setEditForm({ ...editForm, linkedin_url: e.target.value })} className="w-full border border-border rounded-xl px-4 py-2 font-sans text-sm" />
+                                    </div>
+                                    <div className="sm:col-span-2">
+                                        <label className="block text-xs font-bold text-text-mid uppercase tracking-wider mb-1">Twitter URL</label>
+                                        <input type="url" value={editForm.twitter_url} onChange={e => setEditForm({ ...editForm, twitter_url: e.target.value })} className="w-full border border-border rounded-xl px-4 py-2 font-sans text-sm" />
+                                    </div>
+                                    <div className="sm:col-span-2">
+                                        <label className="block text-xs font-bold text-text-mid uppercase tracking-wider mb-1">Website URL</label>
+                                        <input type="url" value={editForm.website_url} onChange={e => setEditForm({ ...editForm, website_url: e.target.value })} className="w-full border border-border rounded-xl px-4 py-2 font-sans text-sm" />
+                                    </div>
+                                </div>
+
+                                <div className="mt-8 pt-6 border-t border-border">
+                                    <label className="block text-xs font-bold text-text-mid uppercase tracking-wider mb-3">Press Links</label>
+
+                                    <div className="space-y-4">
+                                        {editPressLinks.map((link, idx) => (
+                                            <div key={idx} className="flex gap-4 items-start">
+                                                <div className="flex-1 space-y-2">
+                                                    <input type="text" value={link.title} onChange={(e) => {
+                                                        const newLinks = [...editPressLinks]; newLinks[idx].title = e.target.value; setEditPressLinks(newLinks);
+                                                    }} placeholder="Display Title" className="w-full border border-border rounded-xl px-4 py-2 font-sans text-sm" />
+                                                    <input type="url" value={link.url} onChange={(e) => {
+                                                        const newLinks = [...editPressLinks]; newLinks[idx].url = e.target.value; setEditPressLinks(newLinks);
+                                                    }} placeholder="URL" className="w-full border border-border rounded-xl px-4 py-2 font-sans text-sm" />
+                                                </div>
+                                                <button onClick={() => {
+                                                    const newLinks = editPressLinks.filter((_, i) => i !== idx); setEditPressLinks(newLinks);
+                                                }} className="text-red-500 hover:text-red-700 p-2 mt-1"><Trash2 size={18} /></button>
+                                            </div>
+                                        ))}
+                                        <button onClick={() => setEditPressLinks([...editPressLinks, { title: '', url: '', publisher: '' }])} className="text-sm font-sans font-medium text-primary hover:underline">
+                                            + Add another link
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div className="flex justify-end gap-4">
+                            <div className="flex justify-end gap-4 mt-8 pt-6 border-t border-border bg-white sticky bottom-0">
                                 <button onClick={() => setEditingExpert(null)} className="font-sans font-semibold text-text-mid hover:text-text-dark">Cancel</button>
-                                <button onClick={savePressLinks} className="bg-primary text-white font-sans font-semibold px-6 py-2 rounded-xl hover:bg-primary-hover">Save Changes</button>
+                                <button onClick={saveChanges} className="bg-primary text-white font-sans font-semibold px-6 py-2 rounded-xl hover:bg-primary-hover">Save Changes</button>
                             </div>
                         </div>
                     </div>
