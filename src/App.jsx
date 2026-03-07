@@ -13,11 +13,6 @@ import ApplySuccess from './pages/ApplySuccess';
 import About from './pages/About';
 import Admin from './pages/Admin';
 
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
-
 // ScrollToTop component to reset scroll position on route change
 function ScrollToTop() {
   const { pathname } = useLocation();
