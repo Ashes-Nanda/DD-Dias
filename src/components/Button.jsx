@@ -39,7 +39,7 @@ export default function Button({
         >
             <div
                 className={cn(
-                    "absolute inset-0 top-[100%] left-0 w-full h-full",
+                    "absolute inset-0 top-[100%] left-0 w-full h-full transition-all duration-300 group-hover:top-0",
                     bgHoverColors[variant]
                 )}
             />

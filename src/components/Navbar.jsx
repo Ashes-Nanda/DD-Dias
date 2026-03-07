@@ -44,15 +44,21 @@ export default function Navbar() {
                 {/* Mobile Menu Toggle */}
                 <button
                     className="md:hidden pointer-events-auto p-2 text-primary"
-                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                    onClick={() => setMobileMenuOpen(true)}
                 >
-                    {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+                    <Menu size={28} />
                 </button>
             </div>
 
             {/* Mobile Menu Overlay */}
             {mobileMenuOpen && (
-                <div className="fixed inset-0 z-40 bg-surface flex flex-col pt-32 px-6 pointer-events-auto">
+                <div className="fixed inset-0 z-[60] bg-surface flex flex-col pt-32 px-6 pointer-events-auto">
+                    <button
+                        className="absolute top-6 right-6 p-2 text-primary"
+                        onClick={() => setMobileMenuOpen(false)}
+                    >
+                        <X size={32} />
+                    </button>
                     <div className="flex flex-col space-y-8 font-serif text-3xl font-bold text-primary">
                         <Link to="/directory" onClick={() => setMobileMenuOpen(false)}>Find an Expert</Link>
                         <Link to="/apply" onClick={() => setMobileMenuOpen(false)}>Apply to be Listed</Link>
