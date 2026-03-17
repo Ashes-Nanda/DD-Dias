@@ -1,14 +1,31 @@
+import { useEffect, useState } from 'react';
 import Button from './Button';
 import { Link } from 'react-router-dom';
-
-const mockExperts = [
-    { id: 1, name: "Dr. Aditi Sharma", title: "Chief Economist", org: "Global Finance Inst.", city: "Mumbai", tags: ["Finance", "Leadership"], photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop" },
-    { id: 2, name: "Priya Desai", title: "VP Product", org: "TechFlow", city: "Bangalore", tags: ["Tech", "Product"], photo: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=600&auto=format&fit=crop" },
-    { id: 3, name: "Meera Kapoor", title: "Founding Partner", org: "Kapoor & Co.", city: "Mumbai", tags: ["Law", "Workplace"], photo: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=600&auto=format&fit=crop" },
-    { id: 4, name: "Dr. Kavita Rao", title: "Head of Research", org: "National MedCorp", city: "Hyderabad", tags: ["Healthcare", "Leadership"], photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=600&auto=format&fit=crop" },
-];
+import { supabase } from '../lib/supabase';
 
 export function FeaturesSection() {
+    const [experts, setExperts] = useState([]);
+
+    useEffect(() => {
+        supabase
+            .from('experts')
+            .select('slug, full_name, title, tags, photo_url')
+            .eq('status', 'approved')
+            .order('created_at', { ascending: false })
+            .limit(4)
+            .then(({ data }) => {
+                if (data && data.length > 0) {
+                    setExperts(data.map(e => ({
+                        slug: e.slug,
+                        name: e.full_name,
+                        title: e.title,
+                        tags: e.tags || [],
+                        photo: e.photo_url || null,
+                    })));
+                }
+            });
+    }, []);
+
     return (
         <div className="bg-surface py-24 px-6 relative z-10 overflow-hidden">
             <div className="max-w-7xl mx-auto space-y-32">
@@ -26,9 +43,13 @@ export function FeaturesSection() {
                         <Button to="/directory" variant="secondary">Enter the Dais</Button>
                     </div>
                     <div className="grid grid-cols-2 gap-4 relative group">
-                        {mockExperts.map((expert) => (
-                            <Link to={`/expert/${expert.id}`} key={expert.id} className="relative aspect-[4/5] overflow-hidden rounded-2xl group/card cursor-pointer">
-                                <img src={expert.photo} alt={expert.name} className="object-cover w-full h-full transition-transform duration-700 group-hover/card:scale-105" />
+                        {experts.map((expert) => (
+                            <Link to={`/expert/${expert.slug}`} key={expert.slug} className="relative aspect-[4/5] overflow-hidden rounded-2xl group/card cursor-pointer">
+                                {expert.photo ? (
+                                    <img src={expert.photo} alt={expert.name} className="object-cover w-full h-full transition-transform duration-700 group-hover/card:scale-105" />
+                                ) : (
+                                    <div className="w-full h-full bg-primary-light flex items-center justify-center font-serif italic text-primary text-lg">No Photo</div>
+                                )}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
                                     <p className="text-white font-serif font-bold text-lg">{expert.name}</p>
                                     <p className="text-white/80 font-sans text-sm">{expert.tags[0]}</p>

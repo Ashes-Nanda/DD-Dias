@@ -1,28 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
-import { cn } from '../lib/utils';
 import Button from './Button';
 
 export default function Navbar() {
-    const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 20);
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
     return (
-        <nav className="fixed top-0 left-0 w-full z-50 px-6 py-4 pointer-events-none">
+        <nav className="sticky top-0 left-0 w-full z-50 bg-surface border-b border-border">
             <div
-                className={cn(
-                    "max-w-7xl mx-auto flex items-center justify-between pointer-events-auto transition-all duration-500 rounded-full px-6 py-3",
-                    scrolled ? "bg-surface shadow-sm border border-border" : "bg-transparent"
-                )}
+                className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4"
             >
                 <Link to="/" className="font-serif font-bold text-2xl text-primary tracking-tight">
                     Draupadi on the Dais
@@ -43,7 +30,7 @@ export default function Navbar() {
 
                 {/* Mobile Menu Toggle */}
                 <button
-                    className="md:hidden pointer-events-auto p-2 text-primary"
+                    className="md:hidden p-2 text-primary"
                     onClick={() => setMobileMenuOpen(true)}
                 >
                     <Menu size={28} />
