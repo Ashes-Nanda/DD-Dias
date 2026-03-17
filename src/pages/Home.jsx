@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '../components/Button';
 import { cn } from '../lib/utils';
-import { ArrowLeftRight, Terminal, Clock } from 'lucide-react'; // Placeholder icons for features
+import { Link } from 'react-router-dom';
 
 import { FeaturesSection } from '../components/FeaturesSection';
 import { PhilosophySection } from '../components/PhilosophySection';
@@ -23,17 +23,25 @@ export default function Home() {
                         <p
                             className="mt-8 text-xl md:text-2xl text-text-dark font-sans max-w-2xl leading-relaxed"
                         >
-                            We've built the directory that removes that excuse. Find verified women experts across industries, available for panels, media, podcasts, and speaking.
+                            We built Draupadi on the Dais to remove that excuse. Find the right voice for your panel, your platform, your story. From a curated network of India's most credible women, verified and ready.
                         </p>
 
                         <div className="mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-6">
                             <Button to="/directory" variant="primary" className="w-full sm:w-auto text-lg py-4 px-8 border-2 border-primary">
-                                Find an Expert
+                                Find a Voice
                             </Button>
                             <Button to="/apply" variant="secondary" className="w-full sm:w-auto text-lg py-4 px-8">
-                                Apply to be Listed
+                                Join the Dais
                             </Button>
                         </div>
+
+                        {/* Item 9: Expert acknowledgement line */}
+                        <p className="mt-6 font-sans text-sm text-text-mid">
+                            Are you the voice that keeps getting left off the list?{' '}
+                            <Link to="/apply" className="text-primary font-medium hover:underline">
+                                Join the Dais →
+                            </Link>
+                        </p>
                     </div>
 
                     <div className="relative mt-8 lg:mt-0 w-full hidden md:block lg:h-full">
@@ -50,7 +58,7 @@ export default function Home() {
                         {/* Decorative floating stats box */}
                         <div className="absolute -bottom-8 -left-8 bg-surface p-6 rounded-3xl border border-border shadow-sm hidden lg:block z-20">
                             <p className="font-serif text-4xl text-primary font-bold">100%</p>
-                            <p className="font-sans text-sm text-text-mid font-bold uppercase tracking-widest mt-1">Verified Experts</p>
+                            <p className="font-sans text-sm text-text-mid font-bold uppercase tracking-widest mt-1">Verified</p>
                         </div>
                     </div>
                 </div>
@@ -62,8 +70,8 @@ export default function Home() {
                     <div className="lg:w-1/2 w-full order-2 lg:order-1">
                         <div className="aspect-[16/9] lg:aspect-square rounded-3xl overflow-hidden relative shadow-md">
                             <img
-                                src="https://images.unsplash.com/photo-1541817374027-6f774313fa42?q=80&w=1000&auto=format&fit=crop"
-                                alt="Audience at a conference"
+                                src="https://images.unsplash.com/photo-1573164574572-cb89e39749b4?q=80&w=1000&auto=format&fit=crop"
+                                alt="Indian woman speaking at a panel"
                                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                             />
                             <div className="absolute inset-0 bg-primary/20 mix-blend-multiply rounded-3xl" />
@@ -74,24 +82,24 @@ export default function Home() {
                         <h2 className="text-4xl md:text-5xl text-primary font-bold font-serif mb-6 leading-tight">
                             What is Draupadi on the Dais?
                         </h2>
-                        <p className="font-sans text-lg md:text-xl text-text-dark leading-relaxed mb-12">
-                            We are a curated directory of women experts and speakers.
-                            Our mission is to ensure that organizers, journalists, and companies always have access to qualified women for their platforms.
-                            A curated directory signals quality, becoming the go-to reference for leadership voices.
-                        </p>
+                        <div className="font-sans text-lg md:text-xl text-text-dark leading-relaxed mb-12 space-y-4">
+                            <p>Draupadi on the Dais is not a list. It is a standard.</p>
+                            <p>We built it because the 'we couldn't find a qualified woman' excuse had gone on long enough. Every woman on the Dais is here because she has been reviewed, verified, and deemed worth your time. And hers.</p>
+                            <p>For organisers, journalists, and companies who are serious about who gets a seat at the table.</p>
+                        </div>
 
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 w-full border-t border-border pt-10">
                             <div className="space-y-2">
                                 <div className="text-4xl lg:text-5xl font-serif font-bold text-primary">50+</div>
-                                <div className="text-xs font-bold uppercase tracking-widest text-text-mid">Experts Listed</div>
+                                <div className="text-xs font-bold uppercase tracking-widest text-text-mid">Voices Listed</div>
                             </div>
                             <div className="space-y-2">
                                 <div className="text-4xl lg:text-5xl font-serif font-bold text-primary">12</div>
                                 <div className="text-xs font-bold uppercase tracking-widest text-text-mid">Industries</div>
                             </div>
-                            <div className="space-y-2 col-span-2 sm:col-span-1 pt-6 sm:pt-0 border-t sm:border-t-0 sm:border-l border-border sm:pl-8">
-                                <div className="text-4xl lg:text-5xl font-serif font-bold text-primary">1</div>
-                                <div className="text-xs font-bold uppercase tracking-widest text-text-mid">Decoding Draupadi Network</div>
+                            {/* Item 12: Remove '1' number, display as text label only */}
+                            <div className="space-y-2 col-span-2 sm:col-span-1 pt-6 sm:pt-0 border-t sm:border-t-0 sm:border-l border-border sm:pl-8 flex flex-col justify-center">
+                                <div className="text-xs font-bold uppercase tracking-widest text-text-mid">Part of the Decoding Draupadi Network</div>
                             </div>
                         </div>
                     </div>

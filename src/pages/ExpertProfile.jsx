@@ -9,6 +9,99 @@ import { supabase } from '../lib/supabase';
 // Mock specific details that aren't in the directory level mock array
 // MOCK_BIO and MOCK_PRESS are replaced by data fetched from Supabase
 
+function ContactForm({ expertName }) {
+    const firstName = expertName.split(' ')[0];
+    const [form, setForm] = useState({
+        name: '',
+        org: '',
+        message: `Hi,\n\nMy name is [Name].\nI am from [Organization].\n\nI am trying to reach ${expertName} regarding an event opportunity.\n\nCould you help connect us?`
+    });
+    const [sent, setSent] = useState(false);
+
+    const handleChange = (field, value) => {
+        setForm(prev => {
+            const updated = { ...prev, [field]: value };
+            // Keep message template in sync as name/org are typed
+            if (field === 'name' || field === 'org') {
+                const n = field === 'name' ? value : prev.name;
+                const o = field === 'org' ? value : prev.org;
+                updated.message = `Hi,\n\nMy name is ${n || '[Name]'}.\nI am from ${o || '[Organization]'}.\n\nI am trying to reach ${expertName} regarding an event opportunity.\n\nCould you help connect us?`;
+            }
+            return updated;
+        });
+    };
+
+    const handleSend = (e) => {
+        e.preventDefault();
+        const subject = encodeURIComponent(`Event Opportunity — Connect with ${expertName}`);
+        const body = encodeURIComponent(form.message);
+        window.location.href = `mailto:ak@c4e.in?subject=${subject}&body=${body}`;
+        setSent(true);
+    };
+
+    return (
+        <section className="p-8 bg-primary-light border border-primary/20 rounded-3xl">
+            <h3 className="font-serif text-2xl text-primary font-bold mb-2">Get in Touch</h3>
+            <p className="font-sans text-text-dark text-base leading-relaxed mb-6">
+                Want to book {firstName} for an event or media opportunity? Send a message to the Dais team and we'll help connect you.
+            </p>
+
+            {sent ? (
+                <div className="bg-white border border-primary/20 rounded-2xl p-6 text-center">
+                    <p className="font-serif text-xl text-primary font-bold mb-1">Message sent.</p>
+                    <p className="font-sans text-text-mid text-sm">Your email client should have opened. We'll be in touch soon.</p>
+                </div>
+            ) : (
+                <form onSubmit={handleSend} className="space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label className="block font-sans text-xs font-bold text-text-dark uppercase tracking-wider mb-1.5">Your Name *</label>
+                            <input
+                                required
+                                type="text"
+                                value={form.name}
+                                onChange={(e) => handleChange('name', e.target.value)}
+                                placeholder="Priya Mehta"
+                                className="w-full border border-primary/20 bg-white rounded-xl px-4 py-2.5 font-sans text-sm text-text-dark focus:outline-none focus:border-primary/50 transition-colors"
+                            />
+                        </div>
+                        <div>
+                            <label className="block font-sans text-xs font-bold text-text-dark uppercase tracking-wider mb-1.5">Organisation *</label>
+                            <input
+                                required
+                                type="text"
+                                value={form.org}
+                                onChange={(e) => handleChange('org', e.target.value)}
+                                placeholder="TED Mumbai"
+                                className="w-full border border-primary/20 bg-white rounded-xl px-4 py-2.5 font-sans text-sm text-text-dark focus:outline-none focus:border-primary/50 transition-colors"
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <label className="block font-sans text-xs font-bold text-text-dark uppercase tracking-wider mb-1.5">Message *</label>
+                        <textarea
+                            required
+                            rows={6}
+                            value={form.message}
+                            onChange={(e) => setForm(prev => ({ ...prev, message: e.target.value }))}
+                            className="w-full border border-primary/20 bg-white rounded-xl px-4 py-3 font-sans text-sm text-text-dark leading-relaxed resize-none focus:outline-none focus:border-primary/50 transition-colors"
+                        />
+                    </div>
+                    <button
+                        type="submit"
+                        className="inline-flex items-center gap-2 bg-primary text-white font-sans font-semibold text-sm px-6 py-3 rounded-xl hover:bg-primary-hover transition-colors"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                        </svg>
+                        Send Message
+                    </button>
+                </form>
+            )}
+        </section>
+    );
+}
+
 export default function ExpertProfile() {
     const { slug } = useParams();
     const [expertData, setExpertData] = useState(null);
@@ -46,19 +139,31 @@ export default function ExpertProfile() {
                 };
                 setExpertData(mapped);
 
-                // Fetch recommendations (random 3 approved experts)
+                // Fetch approved experts sharing tags or industries, sorted alphabetically
                 const { data: recData } = await supabase
                     .from('experts')
                     .select('*')
                     .eq('status', 'approved')
                     .neq('id', data.id)
-                    .limit(3);
+                    .order('full_name', { ascending: true });
 
                 if (recData) {
-                    setRecommended(recData.map(r => ({
+                    const expertTags = data.tags || [];
+                    const expertIndustries = data.industries || [];
+
+                    // Prefer experts sharing at least one tag or industry
+                    const similar = recData.filter(r =>
+                        (r.tags || []).some(t => expertTags.includes(t)) ||
+                        (r.industries || []).some(i => expertIndustries.includes(i))
+                    );
+
+                    // Fall back to any experts if fewer than 3 similar ones
+                    const pool = similar.length >= 3 ? similar : recData;
+
+                    setRecommended(pool.slice(0, 3).map(r => ({
                         id: r.id, slug: r.slug, name: r.full_name, title: r.title, org: r.organisation,
                         city: r.city || [], industry: r.industries?.[0] || 'Expert', tags: r.tags || [],
-                        appearances: r.appearance_types || [], photo: r.photo_url || null
+                        appearanceTypes: r.appearance_types || [], photo: r.photo_url || null
                     })));
                 }
             }
@@ -77,7 +182,7 @@ export default function ExpertProfile() {
             <div className="min-h-screen pt-32 pb-24 bg-surface flex flex-col items-center justify-center">
                 <h1 className="font-serif text-4xl text-primary font-bold mb-6">Expert Not Found</h1>
                 <p className="font-sans text-text-dark mb-8">The profile you are looking for does not exist or has been removed.</p>
-                <Button to="/directory" variant="primary">Return to Directory</Button>
+                <Button to="/directory" variant="primary">Return to the Dais</Button>
             </div>
         );
     }
@@ -85,7 +190,8 @@ export default function ExpertProfile() {
     return (
         <div className="pt-24 min-h-screen bg-surface">
             <Helmet>
-                <title>{expertData.name} | Draupadi on the Dais</title>
+                {/* Item 52: Dynamic meta title format: '[Name] — [Expertise] | Draupadi on the Dais' */}
+                <title>{expertData.name} — {expertData.tags?.[0] || expertData.title} | Draupadi on the Dais</title>
                 <meta name="description" content={`${expertData.name} is a ${expertData.title} at ${expertData.org}. View her full profile and speaking topics.`} />
                 <script type="application/ld+json">
                     {JSON.stringify({
@@ -106,7 +212,7 @@ export default function ExpertProfile() {
             <div className="max-w-7xl mx-auto px-6 py-12">
 
                 <Link to="/directory" className="inline-flex items-center gap-2 text-text-mid hover:text-primary transition-colors font-sans text-sm font-medium mb-12">
-                    <ArrowLeft size={16} /> Back to Directory
+                    <ArrowLeft size={16} /> Back to the Dais
                 </Link>
 
                 <div className="flex flex-col lg:flex-row gap-16 item-start">
@@ -222,12 +328,7 @@ export default function ExpertProfile() {
                         </section>
 
                         {/* Contact */}
-                        <section className="p-8 bg-primary-light border border-primary/20 rounded-3xl">
-                            <h3 className="font-serif text-2xl text-primary font-bold mb-4">Contact</h3>
-                            <p className="font-sans text-text-dark text-lg leading-relaxed">
-                                To reach {expertData.name.split(' ')[0]} directly, connect via her LinkedIn or Instagram. For event partnerships or media inquiries, email our team at <a href="mailto:ak@c4e.in" className="text-primary font-bold underline decoration-primary/30 underline-offset-4">ak@c4e.in</a>.
-                            </p>
-                        </section>
+                        <ContactForm expertName={expertData.name} />
 
                     </div>
                 </div>
@@ -238,7 +339,7 @@ export default function ExpertProfile() {
                 <div className="bg-background py-24 border-t border-border">
                     <div className="max-w-7xl mx-auto px-6">
                         <div className="border border-border rounded-3xl p-8 bg-surface">
-                            <h2 className="font-serif text-2xl text-primary font-bold mb-6">More experts you might be looking for</h2>
+                            <h2 className="font-serif text-2xl text-primary font-bold mb-6">More Like This</h2>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                                 {recommended.map(expert => (
                                     <ExpertCard key={expert.id} expert={expert} />
@@ -246,7 +347,7 @@ export default function ExpertProfile() {
                             </div>
                             <div className="mt-8 text-center border-t border-border pt-8">
                                 <Button to="/directory" variant="secondary" className="text-primary hover:border-primary">
-                                    View Full Directory
+                                    Enter the Dais
                                 </Button>
                             </div>
                         </div>

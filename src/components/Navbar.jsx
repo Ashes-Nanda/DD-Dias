@@ -21,7 +21,7 @@ export default function Navbar() {
             <div
                 className={cn(
                     "max-w-7xl mx-auto flex items-center justify-between pointer-events-auto transition-all duration-500 rounded-full px-6 py-3",
-                    scrolled ? "bg-surface/80 backdrop-blur-md shadow-sm border border-border" : "bg-transparent"
+                    scrolled ? "bg-surface shadow-sm border border-border" : "bg-transparent"
                 )}
             >
                 <Link to="/" className="font-serif font-bold text-2xl text-primary tracking-tight">
@@ -29,15 +29,15 @@ export default function Navbar() {
                 </Link>
 
                 <div className="hidden md:flex items-center space-x-8 font-sans text-[15px] font-medium text-text-dark">
-                    <Link to="/directory" className="hover:text-primary transition-colors">Find an Expert</Link>
-                    <Link to="/apply" className="hover:text-primary transition-colors">Apply to be Listed</Link>
+                    <Link to="/directory" className="hover:text-primary transition-colors">Find a Voice</Link>
+                    <Link to="/apply" className="hover:text-primary transition-colors">Join the Dais</Link>
                     <Link to="/about" className="hover:text-primary transition-colors">About</Link>
-                    <a href="#for-organisers" className="hover:text-primary transition-colors">For Organisers</a>
+                    <Link to="/directory" className="hover:text-primary transition-colors">For Organisers</Link>
                 </div>
 
                 <div className="hidden md:block">
                     <Button to="/directory" variant="primary" className="py-2 px-5 text-sm">
-                        Browse Directory
+                        Enter the Dais
                     </Button>
                 </div>
 
@@ -60,14 +60,14 @@ export default function Navbar() {
                         <X size={32} />
                     </button>
                     <div className="flex flex-col space-y-8 font-serif text-3xl font-bold text-primary">
-                        <Link to="/directory" onClick={() => setMobileMenuOpen(false)}>Find an Expert</Link>
-                        <Link to="/apply" onClick={() => setMobileMenuOpen(false)}>Apply to be Listed</Link>
+                        <Link to="/directory" onClick={() => setMobileMenuOpen(false)}>Find a Voice</Link>
+                        <Link to="/apply" onClick={() => setMobileMenuOpen(false)}>Join the Dais</Link>
                         <Link to="/about" onClick={() => setMobileMenuOpen(false)}>About</Link>
-                        <a href="#for-organisers" onClick={() => setMobileMenuOpen(false)}>For Organisers</a>
+                        <Link to="/directory" onClick={() => setMobileMenuOpen(false)}>For Organisers</Link>
                     </div>
                     <div className="mt-12">
                         <Button to="/directory" variant="primary" className="w-full py-4 text-center justify-center" onClick={() => setMobileMenuOpen(false)}>
-                            Browse Directory
+                            Enter the Dais
                         </Button>
                     </div>
                 </div>

@@ -1,5 +1,3 @@
-import React from 'react';
-
 export function PhilosophySection() {
 
     return (
@@ -14,12 +12,12 @@ export function PhilosophySection() {
                     backgroundSize: '200px 200px'
                 }}
             />
+            {/* Item 23: Remove "The Philosophy" label, update copy, keep black banner treatment */}
             <div className="max-w-4xl mx-auto text-center z-10 relative">
-                <h2 className="font-serif text-3xl md:text-5xl font-bold mb-8 text-primary-light/50 tracking-tight">
-                    The Philosophy
-                </h2>
                 <p className="font-sans text-2xl md:text-4xl leading-relaxed md:leading-[1.4] text-white font-medium">
-                    Open directories become noise. Curated directories become go-to references. We chose the latter.
+                    Open networks become noise.<br />
+                    Curated ones become the standard.<br />
+                    We chose the latter.
                 </p>
             </div>
         </section>

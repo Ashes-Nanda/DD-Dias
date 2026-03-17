@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find 'C:/Users/Ashes Nanda/AppData/Local/Temp' -name *.jpg -o -name *.png -o -name *.jpeg -o -name *.webp)"
+    ]
+  }
+}

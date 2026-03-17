@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import { cn } from '../lib/utils';
-import { UploadCloud, Check } from 'lucide-react';
+import { UploadCloud, Check, Plus, X } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
 // Approved Tag Lists (V1 Defaults from PRD)
@@ -10,7 +10,6 @@ const INDUSTRIES = ["Tech & Software", "Finance & Banking", "Media & Journalism"
 const EXPERTISE = ["Leadership & Management", "Entrepreneurship", "Personal Finance", "Investing & Wealth", "Mental Health & Wellbeing", "Career Transitions", "Workplace Culture", "Diversity & Inclusion", "Public Policy", "Gender & Feminism", "Digital & Social Media", "Brand Building", "Sales & Business Development", "Product & Innovation", "Data & AI", "Legal Rights & Compliance", "Nutrition & Fitness", "Relationships & Family", "Urban Living", "Content & Storytelling", "Education Reform", "Climate Action", "Community Building", "Negotiation & Advocacy", "Media & PR"];
 const APPEARANCES = ["Speaker", "Panellist", "Media Quote / Commentary", "Podcast Guest", "Workshop Facilitator"];
 const CITIES = ["Mumbai", "Delhi", "Bangalore", "Chennai", "Hyderabad", "Pune", "Kolkata", "Ahmedabad", "Remote / Available Nationally"];
-const HEAR_OPTIONS = ["Instagram", "WhatsApp community", "Referred by someone", "LinkedIn", "Other"];
 
 export default function Apply() {
     const navigate = useNavigate();
@@ -38,11 +37,12 @@ export default function Apply() {
             { title: '', url: '' },
             { title: '', url: '' }
         ],
-        hearSource: '',
-        anythingElse: ''
+        hearSource: ''
+        // hearSource kept for potential future use
     });
 
     const [file, setFile] = useState(null);
+    const [customCityInputs, setCustomCityInputs] = useState([]);
 
     const handleMultiSelect = (field, value) => {
         setFormData(prev => ({
@@ -52,6 +52,10 @@ export default function Apply() {
                 : [...prev[field], value]
         }));
     };
+
+    const addCustomCity = () => setCustomCityInputs(prev => [...prev, '']);
+    const updateCustomCity = (index, value) => setCustomCityInputs(prev => prev.map((c, i) => i === index ? value : c));
+    const removeCustomCity = (index) => setCustomCityInputs(prev => prev.filter((_, i) => i !== index));
 
     const handlePressLinkChange = (index, field, value) => {
         const newPressLinks = [...formData.pressLinks];
@@ -67,7 +71,8 @@ export default function Apply() {
             return;
         }
 
-        if (formData.cities.length === 0) {
+        const allCities = [...formData.cities, ...customCityInputs.map(c => c.trim()).filter(Boolean)];
+        if (allCities.length === 0) {
             alert("Please select at least one city.");
             return;
         }
@@ -116,7 +121,7 @@ export default function Apply() {
             email: formData.email,
             title: formData.title,
             organisation: formData.org,
-            city: formData.cities,
+            city: allCities,
             industries: formData.industries,
             appearance_types: formData.appearances,
             bio: formData.bio,
@@ -138,7 +143,7 @@ export default function Apply() {
             console.error("Error submitting application:", error);
             alert("Something went wrong submitting your application. Please try again.");
         } else {
-            navigate('/apply/thank-you');
+            navigate('/apply/thank-you', { state: { name: formData.fullName.split(' ')[0] } });
         }
     };
 
@@ -146,16 +151,27 @@ export default function Apply() {
         <div className="pt-32 pb-24 min-h-screen bg-background">
             <div className="max-w-3xl mx-auto px-6">
 
-                {/* Header */}
+                {/* Header — items 32 & 33 */}
                 <div className="mb-16">
                     <h1 className="font-serif text-5xl md:text-6xl text-primary font-bold mb-6 tracking-tight">Take the stage.<br />Officially.</h1>
-                    <p className="font-sans text-xl text-text-dark leading-relaxed mb-8 max-w-2xl">
-                        We built this directory because qualified women kept being left off panels. If you're an expert, practitioner, researcher, or executive with something to say — we want to know you exist.
-                    </p>
-                    <ul className="space-y-4 font-sans text-text-dark font-medium border-l-2 border-primary pl-6">
-                        <li>Your profile in a curated directory of women experts</li>
-                        <li>Visibility to organisers, journalists, and corporates</li>
-                        <li>Listing is free. Applications are carefully reviewed.</li>
+                    <div className="font-sans text-xl text-text-dark leading-relaxed mb-8 max-w-2xl space-y-4">
+                        <p>We built the Dais because qualified women kept being left off panels. Not because they didn't exist, but because nobody had built the infrastructure to find them.</p>
+                        <p>If you're a practitioner, researcher, executive, or public thinker with something to say, apply to join. We review every application personally. Not everyone gets in. Those who do are the women organisers across India will come looking for.</p>
+                    </div>
+                    {/* Item 33: More prominent bullet points */}
+                    <ul className="space-y-4 font-sans text-text-dark">
+                        <li className="flex items-start gap-3">
+                            <span className="mt-1 w-5 h-5 flex-shrink-0 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">✓</span>
+                            <span className="font-medium">Your profile on a curated, verified platform. Not a generic list.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                            <span className="mt-1 w-5 h-5 flex-shrink-0 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">✓</span>
+                            <span className="font-medium">Visibility to organisers, journalists, and companies looking for the right voice.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                            <span className="mt-1 w-5 h-5 flex-shrink-0 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">✓</span>
+                            <span className="font-medium">Free to apply. Selective by design.</span>
+                        </li>
                     </ul>
                 </div>
 
@@ -210,6 +226,37 @@ export default function Apply() {
                                     </label>
                                 ))}
                             </div>
+
+                            {customCityInputs.length > 0 && (
+                                <div className="mt-3 space-y-2">
+                                    {customCityInputs.map((city, index) => (
+                                        <div key={index} className="flex items-center gap-2">
+                                            <input
+                                                type="text"
+                                                value={city}
+                                                onChange={(e) => updateCustomCity(index, e.target.value)}
+                                                className="flex-1 border border-border rounded-xl px-4 py-2.5 bg-surface focus:outline-none focus:border-primary/50 transition-colors font-sans text-sm"
+                                                placeholder="e.g. Indore"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => removeCustomCity(index)}
+                                                className="p-2 text-text-mid hover:text-primary transition-colors"
+                                            >
+                                                <X size={16} />
+                                            </button>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+
+                            <button
+                                type="button"
+                                onClick={addCustomCity}
+                                className="mt-3 flex items-center gap-1.5 text-primary font-sans text-sm font-medium hover:underline"
+                            >
+                                <Plus size={15} /> Add another city
+                            </button>
                         </div>
                     </div>
 
@@ -263,7 +310,14 @@ export default function Apply() {
                         <div>
                             <label className="block font-sans text-sm font-bold text-text-dark mb-2">Professional Bio *</label>
                             <textarea required rows={6} value={formData.bio} onChange={(e) => setFormData(prev => ({ ...prev, bio: e.target.value }))} className="w-full border border-border rounded-xl px-4 py-3 bg-surface focus:outline-none focus:border-primary/50 transition-colors resize-none font-sans leading-relaxed" placeholder="Aditi Sharma is a Chief Economist specializing in emerging markets..."></textarea>
-                            <p className="text-xs text-text-mid mt-2 font-sans">Write in third person. This will appear exactly on your public profile. (300-500 words recommended)</p>
+                            <p className="text-xs text-text-mid mt-2 font-sans">Write in third person. This will appear exactly on your public profile. (300–500 words recommended)</p>
+                            {/* Item 37: Collapsible bio help prompt */}
+                            <details className="mt-3">
+                                <summary className="text-xs text-primary font-sans font-medium cursor-pointer hover:underline">Need help writing your bio?</summary>
+                                <p className="mt-2 text-xs text-text-mid font-sans leading-relaxed bg-surface border border-border rounded-xl p-3">
+                                    Try: '<strong>[Your name]</strong> is a <strong>[title]</strong> specialising in <strong>[area]</strong>. She has <strong>[2–3 credential lines]</strong>. She is available for <strong>[appearance types]</strong>.'
+                                </p>
+                            </details>
                         </div>
                     </div>
 
@@ -273,18 +327,26 @@ export default function Apply() {
 
                         <div>
                             <label className="block font-sans text-sm font-bold text-text-dark mb-2">Headshot Upload *</label>
-                            <label className={cn("w-full border-2 border-dashed transition-colors rounded-2xl p-8 flex flex-col items-center justify-center cursor-pointer group", file ? "border-primary bg-primary-light" : "border-border hover:border-primary/50 bg-surface")}>
+                            <label className={cn("w-full border-2 border-dashed transition-colors rounded-2xl overflow-hidden cursor-pointer group", file ? "border-primary" : "border-border hover:border-primary/50")}>
                                 {file ? (
-                                    <>
-                                        <Check className="text-primary mb-3" size={32} />
-                                        <p className="font-sans text-sm font-bold text-primary">{file.name}</p>
-                                    </>
+                                    <div className="relative">
+                                        <img
+                                            src={URL.createObjectURL(file)}
+                                            alt="Headshot preview"
+                                            className="w-full max-h-72 object-cover"
+                                        />
+                                        <div className="absolute bottom-0 left-0 right-0 bg-primary/90 px-4 py-2.5 flex items-center gap-2">
+                                            <Check className="text-white shrink-0" size={15} />
+                                            <p className="font-sans text-xs font-medium text-white truncate">{file.name}</p>
+                                            <span className="ml-auto font-sans text-xs text-white/70 shrink-0">Click to change</span>
+                                        </div>
+                                    </div>
                                 ) : (
-                                    <>
+                                    <div className="p-8 flex flex-col items-center justify-center bg-surface">
                                         <UploadCloud className="text-text-mid group-hover:text-primary transition-colors mb-3" size={32} />
                                         <p className="font-sans text-sm font-bold text-text-dark">Click to upload or drag and drop</p>
                                         <p className="font-sans text-xs text-text-mid mt-1">JPG, PNG (Max 5MB). Square or portrait aspect ratio preferred.</p>
-                                    </>
+                                    </div>
                                 )}
                                 <input
                                     required={!file}
@@ -298,12 +360,12 @@ export default function Apply() {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label className="block font-sans text-sm font-bold text-text-dark mb-2">LinkedIn URL (Optional)</label>
-                                <input type="url" value={formData.linkedin} onChange={(e) => setFormData(prev => ({ ...prev, linkedin: e.target.value }))} className="w-full border border-border rounded-xl px-4 py-3 bg-surface focus:outline-none focus:border-primary/50 transition-colors" placeholder="https://linkedin.com/in/..." />
+                                <label className="block font-sans text-sm font-bold text-text-dark mb-2">LinkedIn URL *</label>
+                                <input required type="url" value={formData.linkedin} onChange={(e) => setFormData(prev => ({ ...prev, linkedin: e.target.value }))} className="w-full border border-border rounded-xl px-4 py-3 bg-surface focus:outline-none focus:border-primary/50 transition-colors" placeholder="https://linkedin.com/in/..." />
                             </div>
                             <div>
-                                <label className="block font-sans text-sm font-bold text-text-dark mb-2">Instagram Handle (Optional)</label>
-                                <input type="text" value={formData.instagram} onChange={(e) => setFormData(prev => ({ ...prev, instagram: e.target.value }))} className="w-full border border-border rounded-xl px-4 py-3 bg-surface focus:outline-none focus:border-primary/50 transition-colors" placeholder="@decodingdraupadi" />
+                                <label className="block font-sans text-sm font-bold text-text-dark mb-2">Instagram Handle *</label>
+                                <input required type="text" value={formData.instagram} onChange={(e) => setFormData(prev => ({ ...prev, instagram: e.target.value }))} className="w-full border border-border rounded-xl px-4 py-3 bg-surface focus:outline-none focus:border-primary/50 transition-colors" placeholder="@decodingdraupadi" />
                             </div>
                             <div className="md:col-span-2">
                                 <label className="block font-sans text-sm font-bold text-text-dark mb-2">Personal Website (Optional)</label>
@@ -323,27 +385,14 @@ export default function Apply() {
 
                             {[0, 1, 2].map((i) => (
                                 <div key={i} className="flex flex-col sm:flex-row gap-3">
-                                    <input type="text" value={formData.pressLinks[i].title} onChange={(e) => handlePressLinkChange(i, 'title', e.target.value)} className="flex-1 border border-border rounded-xl px-4 py-3 bg-surface focus:outline-none focus:border-primary/50" placeholder={`Display Title (e.g. Forbes Interview) - Link ${i + 1}`} />
+                                    {/* Item 38: Removed trailing dash from placeholder */}
+                                    <input type="text" value={formData.pressLinks[i].title} onChange={(e) => handlePressLinkChange(i, 'title', e.target.value)} className="flex-1 border border-border rounded-xl px-4 py-3 bg-surface focus:outline-none focus:border-primary/50" placeholder={`Display Title (e.g. ET Women in Leadership 2024)`} />
                                     <input type="url" value={formData.pressLinks[i].url} onChange={(e) => handlePressLinkChange(i, 'url', e.target.value)} className="flex-1 border border-border rounded-xl px-4 py-3 bg-surface focus:outline-none focus:border-primary/50" placeholder="https://..." />
                                 </div>
                             ))}
                         </div>
                     </div>
 
-                    {/* Section 4: Extra info */}
-                    <div className="space-y-6 pt-6 border-t border-border">
-                        <div>
-                            <label className="block font-sans text-sm font-bold text-text-dark mb-2">How did you hear about us? (Optional)</label>
-                            <select value={formData.hearSource} onChange={(e) => setFormData(prev => ({ ...prev, hearSource: e.target.value }))} className="w-full border border-border rounded-xl px-4 py-3 bg-surface focus:outline-none focus:border-primary/50 transition-colors font-sans">
-                                <option value="" disabled>Select an option</option>
-                                {HEAR_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-                            </select>
-                        </div>
-                        <div>
-                            <label className="block font-sans text-sm font-bold text-text-dark mb-2">Anything else? (Optional)</label>
-                            <textarea rows={3} value={formData.anythingElse} onChange={(e) => setFormData(prev => ({ ...prev, anythingElse: e.target.value }))} className="w-full border border-border rounded-xl px-4 py-3 bg-surface focus:outline-none focus:border-primary/50 transition-colors resize-none font-sans" placeholder="Any additional context you'd like to share..."></textarea>
-                        </div>
-                    </div>
 
                     <div className="pt-8 flex flex-col items-center">
                         <p className="font-sans text-sm text-text-mid mb-6 text-center">We review applications within 5–7 business days. You'll hear from us either way.</p>
