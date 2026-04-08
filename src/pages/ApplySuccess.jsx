@@ -39,11 +39,13 @@ export default function ApplySuccess() {
                     <p className="font-mono text-xs uppercase tracking-widest text-text-mid mb-6">While you wait</p>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="#" className="flex items-center justify-center gap-3 px-6 py-4 border border-border bg-surface rounded-2xl hover:border-primary/50 font-sans text-text-dark font-medium transition-colors">
+                        {/* TODO: confirm DD Instagram URL before going live */}
+                        <a href="https://www.instagram.com/draupadionthedais/" target="_blank" rel="noreferrer" className="flex items-center justify-center gap-3 px-6 py-4 border border-border bg-surface rounded-2xl hover:border-primary/50 font-sans text-text-dark font-medium transition-colors">
                             <Instagram className="text-pink-600" size={20} />
                             Follow on Instagram
                         </a>
-                        <a href="#" className="flex items-center justify-center gap-3 px-6 py-4 border border-border bg-surface rounded-2xl hover:border-primary/50 font-sans text-text-dark font-medium transition-colors">
+                        {/* TODO: replace with actual DD WhatsApp community link */}
+                        <a href="https://chat.whatsapp.com/placeholder" target="_blank" rel="noreferrer" className="flex items-center justify-center gap-3 px-6 py-4 border border-border bg-surface rounded-2xl hover:border-primary/50 font-sans text-text-dark font-medium transition-colors">
                             <MessageCircle className="text-green-600" size={20} />
                             Join DD Community
                         </a>

@@ -28,11 +28,18 @@ export default function Home() {
 
                         <div className="mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-6">
                             <Button to="/directory" variant="primary" className="w-full sm:w-auto text-lg py-4 px-8 border-2 border-primary">
-                                Find a Voice
+                                Find Verified Speakers
                             </Button>
                             <Button to="/apply" variant="secondary" className="w-full sm:w-auto text-lg py-4 px-8">
                                 Join the Dais
                             </Button>
+                        </div>
+
+                        {/* Credibility strip — moved here from buried stats section (#28) */}
+                        <div className="mt-8 flex flex-wrap gap-6 font-sans text-sm text-text-mid">
+                            <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary inline-block" />100% Verified</span>
+                            <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary inline-block" />12 Industries</span>
+                            <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary inline-block" />Free to Apply</span>
                         </div>
 
                         {/* Item 9: Expert acknowledgement line */}
@@ -69,8 +76,9 @@ export default function Home() {
                 <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center">
                     <div className="lg:w-1/2 w-full order-2 lg:order-1">
                         <div className="aspect-[16/9] lg:aspect-square rounded-3xl overflow-hidden relative shadow-md">
+                            {/* TODO: Replace with an authentic photo of an Indian woman speaking at a panel/event — distinct from the hero image */}
                             <img
-                                src="https://images.unsplash.com/photo-1573164574572-cb89e39749b4?q=80&w=1000&auto=format&fit=crop"
+                                src="https://images.unsplash.com/photo-1559526324-593bc073d938?q=80&w=1000&auto=format&fit=crop"
                                 alt="Indian woman speaking at a panel"
                                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                             />
@@ -83,22 +91,20 @@ export default function Home() {
                             What is Draupadi on the Dais?
                         </h2>
                         <div className="font-sans text-lg md:text-xl text-text-dark leading-relaxed mb-12 space-y-4">
-                            <p>Draupadi on the Dais is not a list. It is a standard.</p>
-                            <p>We built it because the 'we couldn't find a qualified woman' excuse had gone on long enough. Every woman on the Dais is here because she has been reviewed, verified, and deemed worth your time. And hers.</p>
+                            <p>Draupadi on the Dais is not a list. It is a standard. A curated network of credible women speakers, reviewed, verified, and ready. No searching. No second-guessing. No excuses.</p>
                             <p>For organisers, journalists, and companies who are serious about who gets a seat at the table.</p>
                         </div>
 
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 w-full border-t border-border pt-10">
-                            <div className="space-y-2">
-                                <div className="text-4xl lg:text-5xl font-serif font-bold text-primary">50+</div>
-                                <div className="text-xs font-bold uppercase tracking-widest text-text-mid">Voices Listed</div>
+                        <div className="flex flex-wrap gap-6 w-full border-t border-border pt-10">
+                            <div className="space-y-1">
+                                <div className="text-4xl lg:text-5xl font-serif font-bold text-primary">100%</div>
+                                <div className="text-xs font-bold uppercase tracking-widest text-text-mid">Verified</div>
                             </div>
-                            <div className="space-y-2">
+                            <div className="space-y-1 border-l border-border pl-6">
                                 <div className="text-4xl lg:text-5xl font-serif font-bold text-primary">12</div>
                                 <div className="text-xs font-bold uppercase tracking-widest text-text-mid">Industries</div>
                             </div>
-                            {/* Item 12: Remove '1' number, display as text label only */}
-                            <div className="space-y-2 col-span-2 sm:col-span-1 pt-6 sm:pt-0 border-t sm:border-t-0 sm:border-l border-border sm:pl-8 flex flex-col justify-center">
+                            <div className="space-y-1 border-l border-border pl-6 flex flex-col justify-center">
                                 <div className="text-xs font-bold uppercase tracking-widest text-text-mid">Part of the Decoding Draupadi Network</div>
                             </div>
                         </div>

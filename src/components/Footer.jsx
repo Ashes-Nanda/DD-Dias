@@ -17,10 +17,10 @@ export default function Footer() {
                     </div>
 
                     <div className="flex flex-wrap gap-4 md:gap-8 font-sans font-medium text-text-dark text-base md:text-lg">
-                        <Link to="/directory" className="hover:text-primary transition-colors">Find a Voice</Link>
+                        <Link to="/directory" className="hover:text-primary transition-colors">Find Verified Speakers</Link>
                         <Link to="/apply" className="hover:text-primary transition-colors">Join the Dais</Link>
                         <Link to="/about" className="hover:text-primary transition-colors">About</Link>
-                        <a href="mailto:ak@c4e.in" className="hover:text-primary transition-colors">Contact</a>
+                        <span className="text-text-dark">ak@c4e.in</span>
                     </div>
                 </div>
 
@@ -39,10 +39,12 @@ export default function Footer() {
                         </a>
                     </div>
                     <div className="flex space-x-6 text-text-mid">
-                        <a href="#" className="hover:text-primary transition-colors">
+                        {/* TODO: confirm DD Instagram URL before going live */}
+                        <a href="https://www.instagram.com/draupadionthedais/" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors" aria-label="Instagram">
                             <Instagram size={24} />
                         </a>
-                        <a href="#" className="hover:text-primary transition-colors">
+                        {/* TODO: confirm DD LinkedIn URL before going live */}
+                        <a href="https://www.linkedin.com/company/draupadi-on-the-dais/" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors" aria-label="LinkedIn">
                             <Linkedin size={24} />
                         </a>
                     </div>

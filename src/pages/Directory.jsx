@@ -5,7 +5,7 @@ import { cn } from '../lib/utils';
 import { supabase } from '../lib/supabase';
 
 const CATEGORIES = {
-    industries: ["Tech & Software", "Finance & Banking", "Media & Journalism", "Marketing & Communications", "Law & Legal", "Healthcare & Medicine", "Policy & Government", "Education & Academia", "Consulting & Strategy", "FMCG & Consumer Goods", "Fashion & Design", "Real Estate", "Non-profit & Social Impact", "Entrepreneurship & Startups", "HR & People", "Architecture & Urban Planning", "Sports & Fitness", "Arts & Culture", "Climate & Sustainability", "Research & Science"],
+    industries: ["Tech & Software", "Finance & Banking", "Media & Journalism", "Marketing & Communications", "Law & Legal", "Healthcare & Medicine", "Policy & Government", "Education & Academia", "Consulting & Strategy", "FMCG & Consumer Goods", "Fashion & Design", "Real Estate", "Non-profit & Social Impact", "Entrepreneurship & Startups", "HR & People", "Architecture & Urban Planning", "Sports & Fitness", "Arts & Culture", "Climate & Sustainability", "Research & Science", "Tourism"],
     expertise: ["Leadership & Management", "Entrepreneurship", "Personal Finance", "Investing & Wealth", "Mental Health & Wellbeing", "Career Transitions", "Workplace Culture", "Diversity & Inclusion", "Public Policy", "Gender & Feminism", "Digital & Social Media", "Brand Building", "Sales & Business Development", "Product & Innovation", "Data & AI", "Legal Rights & Compliance", "Nutrition & Fitness", "Relationships & Family", "Urban Living", "Content & Storytelling", "Education Reform", "Climate Action", "Community Building", "Negotiation & Advocacy", "Media & PR"],
     appearances: ["Speaker", "Panellist", "Media Quote / Commentary", "Podcast Guest", "Workshop Facilitator"],
     cities: ["Mumbai", "Delhi", "Bangalore", "Chennai", "Hyderabad", "Pune", "Kolkata", "Ahmedabad", "Remote / Available Nationally"]
@@ -233,14 +233,16 @@ export default function Directory() {
                         />
 
                         <div className="md:ml-auto w-full md:w-auto flex items-center justify-between md:justify-end gap-4 text-sm font-sans mt-2 md:mt-0">
-                            {/* Item 27: Fixed results count */}
                             <span className="text-text-mid">{resultCountText()}</span>
-                            <button
-                                onClick={clearFilters}
-                                className="text-primary hover:text-primary-hover font-medium flex items-center gap-1"
-                            >
-                                Clear all <X size={14} />
-                            </button>
+                            {/* Only show 'Clear all' when at least one filter or search is active (#7) */}
+                            {(activeFilterEntries.length > 0 || searchQuery !== '') && (
+                                <button
+                                    onClick={clearFilters}
+                                    className="text-primary hover:text-primary-hover font-medium flex items-center gap-1"
+                                >
+                                    Clear all <X size={14} />
+                                </button>
+                            )}
                         </div>
                     </div>
 

@@ -7,7 +7,7 @@ export function ProtocolSection() {
             <div className="w-full relative max-w-5xl mx-auto space-y-12">
 
                 {/* Card 1 */}
-                <div className="protocol-card sticky top-24 bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-border flex flex-col justify-between min-h-[500px] z-10 transition-transform">
+                <div className="protocol-card sticky top-24 bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-border flex flex-col justify-start gap-8 min-h-[280px] z-10 transition-transform">
                     <div>
                         <div className="font-mono text-sm tracking-widest text-text-mid mb-8 uppercase">Phase 01</div>
                         {/* Item 1: No "directory" — updated to "the Dais" */}
@@ -20,7 +20,7 @@ export function ProtocolSection() {
                 </div>
 
                 {/* Card 2 */}
-                <div className="protocol-card sticky top-32 bg-primary-light rounded-3xl p-8 md:p-12 shadow-md border border-primary/20 flex flex-col justify-between min-h-[500px] z-20 transition-transform">
+                <div className="protocol-card sticky top-32 bg-primary-light rounded-3xl p-8 md:p-12 shadow-md border border-primary/20 flex flex-col justify-start gap-8 min-h-[280px] z-20 transition-transform">
                     <div>
                         <div className="font-mono text-sm tracking-widest text-primary mb-8 uppercase">Phase 02</div>
                         <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-primary font-bold max-w-2xl leading-tight">Editorial Review & Approval</h2>
@@ -32,7 +32,7 @@ export function ProtocolSection() {
                 </div>
 
                 {/* Card 3 */}
-                <div className="protocol-card sticky top-40 bg-primary rounded-3xl p-8 md:p-12 shadow-lg flex flex-col justify-between min-h-[500px] z-30 transition-transform">
+                <div className="protocol-card sticky top-40 bg-primary rounded-3xl p-8 md:p-12 shadow-lg flex flex-col justify-start gap-8 min-h-[280px] z-30 transition-transform">
                     <div>
                         <div className="font-mono text-sm tracking-widest text-white/60 mb-8 uppercase">Phase 03</div>
                         <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-white font-bold max-w-2xl leading-tight">Take the stage.</h2>

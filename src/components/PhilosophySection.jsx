@@ -2,7 +2,7 @@ export function PhilosophySection() {
 
     return (
         <section
-            className="relative min-h-[80vh] flex items-center justify-center bg-[#0a0507] text-white px-6 overflow-hidden"
+            className="relative min-h-[40vh] flex items-center justify-center bg-[#0a0507] text-white px-6 py-20 overflow-hidden"
         >
             {/* Parallax noise/texture overlay for the dark section */}
             <div

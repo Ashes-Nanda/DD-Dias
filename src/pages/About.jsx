@@ -20,12 +20,16 @@ export default function About() {
                             Leadership-level panels and conferences in India are overwhelmingly male, not because qualified women don't exist, but because the infrastructure to find them didn't.
                         </p>
                         <p>
-                            Draupadi on the Dais is that infrastructure. Built as an application-based platform of India's most credible women voices, available for panels, media, conferences, and public conversation. Every woman here has been reviewed and verified. That curation is not incidental. It is the entire point.
+                            Draupadi on the Dais is that infrastructure. Built as a curated, verified platform of India's most credible women voices, available for panels, media, conferences, and public conversation.{' '}
+                            <strong className="text-primary">Every woman here has been reviewed and verified.</strong>{' '}
+                            That curation is not incidental. It is the entire point.
                         </p>
                         {/* Item 42: Paragraph 2 deleted */}
                         {/* Item 43: Updated Draupadi mythology paragraph */}
                         <p>
-                            The name comes from the Mahabharata. Draupadi was the most intelligent person in every room she entered, and the most consistently overlooked. She demanded a seat. She shifted the center of gravity. This platform exists in that spirit.
+                            The name comes from the Mahabharata.{' '}
+                            <a href="https://decodingdraupadi.com" target="_blank" rel="noreferrer" className="text-primary underline">Draupadi</a>{' '}
+                            was the most intelligent person in every room she entered, and the most consistently overlooked. She demanded a seat. She shifted the center of gravity. This platform exists in that spirit.
                         </p>
                     </div>
 
@@ -39,7 +43,11 @@ export default function About() {
                             />
                         </div>
                         <p className="font-serif font-bold text-xl text-primary mb-1">Anshika Kushwaha</p>
-                        <p className="font-sans text-sm text-text-mid uppercase tracking-widest font-bold mb-4">Founder</p>
+                        <p className="font-sans text-sm text-text-mid uppercase tracking-widest font-bold mb-2">Founder</p>
+                        <a href="https://www.linkedin.com/in/akatc4e/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 font-sans text-xs text-primary font-medium hover:underline mb-4">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                            LinkedIn Profile
+                        </a>
                         {/* Item 45: Updated founder bio */}
                         <div className="font-sans text-sm text-text-dark leading-relaxed space-y-3">
                             <p>

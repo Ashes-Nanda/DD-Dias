@@ -6,7 +6,7 @@ import { UploadCloud, Check, Plus, X } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
 // Approved Tag Lists (V1 Defaults from PRD)
-const INDUSTRIES = ["Tech & Software", "Finance & Banking", "Media & Journalism", "Marketing & Communications", "Law & Legal", "Healthcare & Medicine", "Policy & Government", "Education & Academia", "Consulting & Strategy", "FMCG & Consumer Goods", "Fashion & Design", "Real Estate", "Non-profit & Social Impact", "Entrepreneurship & Startups", "HR & People", "Architecture & Urban Planning", "Sports & Fitness", "Arts & Culture", "Climate & Sustainability", "Research & Science"];
+const INDUSTRIES = ["Tech & Software", "Finance & Banking", "Media & Journalism", "Marketing & Communications", "Law & Legal", "Healthcare & Medicine", "Policy & Government", "Education & Academia", "Consulting & Strategy", "FMCG & Consumer Goods", "Fashion & Design", "Real Estate", "Non-profit & Social Impact", "Entrepreneurship & Startups", "HR & People", "Architecture & Urban Planning", "Sports & Fitness", "Arts & Culture", "Climate & Sustainability", "Research & Science", "Tourism"];
 const EXPERTISE = ["Leadership & Management", "Entrepreneurship", "Personal Finance", "Investing & Wealth", "Mental Health & Wellbeing", "Career Transitions", "Workplace Culture", "Diversity & Inclusion", "Public Policy", "Gender & Feminism", "Digital & Social Media", "Brand Building", "Sales & Business Development", "Product & Innovation", "Data & AI", "Legal Rights & Compliance", "Nutrition & Fitness", "Relationships & Family", "Urban Living", "Content & Storytelling", "Education Reform", "Climate Action", "Community Building", "Negotiation & Advocacy", "Media & PR"];
 const APPEARANCES = ["Speaker", "Panellist", "Media Quote / Commentary", "Podcast Guest", "Workshop Facilitator"];
 const CITIES = ["Mumbai", "Delhi", "Bangalore", "Chennai", "Hyderabad", "Pune", "Kolkata", "Ahmedabad", "Remote / Available Nationally"];
@@ -173,6 +173,25 @@ export default function Apply() {
                             <span className="font-medium">Free to apply. Selective by design.</span>
                         </li>
                     </ul>
+                </div>
+
+                {/* Progress Indicator (#19) */}
+                <div className="mb-8">
+                    <div className="flex items-center gap-0">
+                        {['Personal Details', 'Expertise', 'Media & Links', 'Submit'].map((step, i, arr) => (
+                            <div key={step} className="flex items-center flex-1 last:flex-none">
+                                <div className="flex flex-col items-center gap-1.5">
+                                    <div className="w-7 h-7 rounded-full bg-primary/10 border border-primary/30 text-primary font-sans text-xs font-bold flex items-center justify-center">
+                                        {i + 1}
+                                    </div>
+                                    <span className="font-sans text-[11px] text-text-mid font-medium whitespace-nowrap hidden sm:block">{step}</span>
+                                </div>
+                                {i < arr.length - 1 && (
+                                    <div className="flex-1 h-px bg-border mx-2 mb-5" />
+                                )}
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
                 {/* Form */}

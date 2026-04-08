@@ -16,7 +16,7 @@ export default function Navbar() {
                 </Link>
 
                 <div className="hidden md:flex items-center space-x-8 font-sans text-[15px] font-medium text-text-dark">
-                    <Link to="/directory" className="hover:text-primary transition-colors">Find a Voice</Link>
+                    <Link to="/directory" className="hover:text-primary transition-colors">Find Verified Speakers</Link>
                     <Link to="/apply" className="hover:text-primary transition-colors">Join the Dais</Link>
                     <Link to="/about" className="hover:text-primary transition-colors">About</Link>
                     <Link to="/directory" className="hover:text-primary transition-colors">For Organisers</Link>
@@ -47,7 +47,7 @@ export default function Navbar() {
                         <X size={32} />
                     </button>
                     <div className="flex flex-col space-y-8 font-serif text-3xl font-bold text-primary">
-                        <Link to="/directory" onClick={() => setMobileMenuOpen(false)}>Find a Voice</Link>
+                        <Link to="/directory" onClick={() => setMobileMenuOpen(false)}>Find Verified Speakers</Link>
                         <Link to="/apply" onClick={() => setMobileMenuOpen(false)}>Join the Dais</Link>
                         <Link to="/about" onClick={() => setMobileMenuOpen(false)}>About</Link>
                         <Link to="/directory" onClick={() => setMobileMenuOpen(false)}>For Organisers</Link>
