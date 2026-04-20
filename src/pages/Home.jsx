@@ -7,6 +7,8 @@ import { FeaturesSection } from '../components/FeaturesSection';
 import { PhilosophySection } from '../components/PhilosophySection';
 import { ProtocolSection } from '../components/ProtocolSection';
 
+import dais4Image from '../assets/dais 4.png';
+import dais2Image from '../assets/dais 2.png';
 export default function Home() {
     return (
         <div className="w-full relative bg-background">
@@ -54,8 +56,8 @@ export default function Home() {
                     <div className="relative mt-8 lg:mt-0 w-full hidden md:block lg:h-full">
                         <div className="w-full h-full aspect-[4/3] sm:aspect-square lg:aspect-auto rounded-[2.5rem] overflow-hidden relative shadow-lg">
                             <img
-                                src="https://images.unsplash.com/photo-1573164574572-cb89e39749b4?q=80&w=1000&auto=format&fit=crop"
-                                alt="Professional woman speaking confidently"
+                                src={dais4Image}
+                                alt="Draupadi on the Dais"
                                 className="w-full h-full object-cover"
                             />
                             {/* Subtle overlay for styling integration */}
@@ -76,9 +78,8 @@ export default function Home() {
                 <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center">
                     <div className="lg:w-1/2 w-full order-2 lg:order-1">
                         <div className="aspect-[16/9] lg:aspect-square rounded-3xl overflow-hidden relative shadow-md">
-                            {/* TODO: Replace with an authentic photo of an Indian woman speaking at a panel/event — distinct from the hero image */}
                             <img
-                                src="https://images.unsplash.com/photo-1559526324-593bc073d938?q=80&w=1000&auto=format&fit=crop"
+                                src={dais2Image}
                                 alt="Indian woman speaking at a panel"
                                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                             />

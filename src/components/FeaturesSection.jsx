@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { Mic, Users, MessageSquare, Headphones, Building2 } from 'lucide-react';
 
+import dais3Image from '../assets/dais 3.png';
+import dais1Image from '../assets/dais 1.png';
+
 export function FeaturesSection() {
     const [experts, setExperts] = useState([]);
 
@@ -65,7 +68,14 @@ export function FeaturesSection() {
                             ))
                         ) : (
                             /* Empty state while directory data loads */
-                            <div className="col-span-2 aspect-[2/1] rounded-2xl bg-primary-light border border-primary/20 flex flex-col items-center justify-center gap-3 text-center px-6">
+                            <div 
+                                className="col-span-2 aspect-[2/1] rounded-2xl bg-primary-light border border-primary/20 flex flex-col items-center justify-center gap-3 text-center px-6"
+                                style={{
+                                    backgroundImage: `url(${dais3Image})`,
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center'
+                                }}
+                            >
                                 <p className="font-serif text-2xl text-primary font-bold">Voices launching soon.</p>
                                 <p className="font-sans text-sm text-text-mid">Every profile is reviewed and verified before going live.</p>
                                 <Link to="/directory" className="font-sans text-sm text-primary font-medium hover:underline mt-1">Browse the Dais →</Link>
@@ -112,7 +122,14 @@ export function FeaturesSection() {
                         </p>
                         <Button to="/apply" variant="primary">Join the Dais</Button>
                     </div>
-                    <div className="bg-primary text-primary-light rounded-[2.5rem] p-12 relative overflow-hidden h-full flex flex-col items-center justify-center min-h-[400px]">
+                    <div 
+                        className="bg-primary text-primary-light rounded-[2.5rem] p-12 relative overflow-hidden h-full flex flex-col items-center justify-center min-h-[400px]"
+                        style={{
+                            backgroundImage: `url(${dais1Image})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center'
+                        }}
+                    >
                         <div className="text-center relative z-10">
                             <div className="font-serif text-5xl md:text-6xl mb-4 text-white">Take the stage.</div>
                             <div className="font-serif text-5xl md:text-6xl text-white">Officially.</div>
