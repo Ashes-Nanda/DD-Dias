@@ -76,9 +76,9 @@ export function FeaturesSection() {
                                     backgroundPosition: 'center'
                                 }}
                             >
-                                <p className="font-serif text-2xl text-primary font-bold">Voices launching soon.</p>
-                                <p className="font-sans text-sm text-text-mid">Every profile is reviewed and verified before going live.</p>
-                                <Link to="/directory" className="font-sans text-sm text-primary font-medium hover:underline mt-1">Browse the Dais →</Link>
+                                <p className="font-serif text-2xl text-white font-bold">Voices launching soon.</p>
+                                <p className="font-sans text-sm text-white/90">Every profile is reviewed and verified before going live.</p>
+                                <Link to="/directory" className="font-sans text-sm text-white font-medium hover:underline mt-1">Browse the Dais →</Link>
                             </div>
                         )}
                     </div>

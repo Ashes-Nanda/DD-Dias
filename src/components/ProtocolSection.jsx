@@ -10,7 +10,7 @@ export function ProtocolSection() {
                 <div className="protocol-card sticky top-24 bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-border flex flex-col justify-start gap-8 min-h-[280px] z-10 transition-transform">
                     <div>
                         <div className="font-mono text-sm tracking-widest text-text-mid mb-8 uppercase">Phase 01</div>
-                        {/* Item 1: No "directory" — updated to "the Dais" */}
+                        {/* Item 1: No "directory" - updated to "the Dais" */}
                         <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-primary font-bold max-w-2xl leading-tight">Apply to join the Dais</h2>
                     </div>
                     {/* Item 34: Updated Phase 01 body copy */}
@@ -40,7 +40,7 @@ export function ProtocolSection() {
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mt-12">
                         {/* Item 36: Updated Phase 03 body copy */}
                         <p className="font-sans text-xl md:text-2xl text-primary-light font-medium max-w-xl">
-                            Organisers, journalists, and companies search the Dais when they need the right woman for the room. They find you. They reach out. The excuse — that they couldn't find a qualified woman — is officially removed.
+                            Organisers, journalists, and companies search the Dais when they need the right woman for the room. They find you. They reach out. The excuse that they couldn't find a qualified woman is officially removed.
                         </p>
                         <Button to="/apply" variant="secondary" className="bg-white border-white text-primary">Apply Now</Button>
                     </div>

@@ -152,7 +152,7 @@ export default function Directory() {
         }).sort((a, b) => a.name.localeCompare(b.name));
     }, [searchQuery, filters, experts]);
 
-    // Item 27: Correct pluralisation — "1 voice" vs "X voices"
+    // Item 27: Correct pluralisation - "1 voice" vs "X voices"
     const resultCountText = () => {
         if (isLoading) return 'Loading...';
         const count = filteredExperts.length;
@@ -168,13 +168,13 @@ export default function Directory() {
         <div className="pt-32 pb-24 min-h-screen bg-background">
             <div className="max-w-7xl mx-auto px-6">
 
-                {/* Header — Item 25: "Directory" → "The Dais", Item 26: updated subheadline */}
+                {/* Header - Item 25: "Directory" → "The Dais", Item 26: updated subheadline */}
                 <div className="mb-12">
                     <h1 className="font-serif text-5xl md:text-6xl text-primary font-bold mb-4">The Dais</h1>
                     <p className="font-sans text-xl text-text-dark">India's curated network of women voices. Available for panels, media, and public conversation.</p>
                 </div>
 
-                {/* Filter Bar (Sticky) — compresses on scroll */}
+                {/* Filter Bar (Sticky) - compresses on scroll */}
                 <div className={cn(
                     "sticky top-[80px] z-40 border border-border mb-6 flex flex-col gap-4 transition-all duration-300",
                     isScrolled
@@ -246,7 +246,7 @@ export default function Directory() {
                         </div>
                     </div>
 
-                    {/* Item 28: Active filter chips — removable tags below filter bar */}
+                    {/* Item 28: Active filter chips - removable tags below filter bar */}
                     {activeFilterEntries.length > 0 && (
                         <div className="flex flex-wrap gap-2 pt-2 border-t border-border/50">
                             {activeFilterEntries.map(({ category, value }) => (
@@ -272,7 +272,7 @@ export default function Directory() {
                     ) : (
                         /* Item 29: Empty state with mailto link */
                         <div className="col-span-full py-20 text-center font-sans text-lg border border-dashed border-border rounded-3xl">
-                            <p className="text-text-mid mb-2">No matches found. Try adjusting your filters — or{' '}
+                            <p className="text-text-mid mb-2">No matches found. Try adjusting your filters - or{' '}
                                 <a
                                     href="mailto:ak@c4e.in"
                                     className="text-primary font-medium hover:underline"

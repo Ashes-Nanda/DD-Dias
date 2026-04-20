@@ -34,11 +34,11 @@ export default function About() {
                     </div>
 
                     <div className="md:col-span-4 pl-0 md:pl-8 border-l-0 md:border-l border-border pt-8 md:pt-0">
-                        {/* Item 44: Placeholder for Anshika's real photo — replace with actual headshot */}
+                        {/* Item 44: Placeholder for Anshika's real photo - replace with actual headshot */}
                         <div className="aspect-[4/5] bg-surface rounded-2xl mb-6 overflow-hidden border border-border">
                             <img
                                 src={anshikaPhoto}
-                                alt="Anshika Kushwaha — Founder, Draupadi on the Dais"
+                                alt="Anshika Kushwaha - Founder, Draupadi on the Dais"
                                 className="w-full h-full object-cover"
                             />
                         </div>

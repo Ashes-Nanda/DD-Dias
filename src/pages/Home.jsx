@@ -37,7 +37,7 @@ export default function Home() {
                             </Button>
                         </div>
 
-                        {/* Credibility strip — moved here from buried stats section (#28) */}
+                        {/* Credibility strip - moved here from buried stats section (#28) */}
                         <div className="mt-8 flex flex-wrap gap-6 font-sans text-sm text-text-mid">
                             <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary inline-block" />100% Verified</span>
                             <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary inline-block" />12 Industries</span>
@@ -81,7 +81,7 @@ export default function Home() {
                             <img
                                 src={dais2Image}
                                 alt="Indian woman speaking at a panel"
-                                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                                className="w-full h-full object-cover transition-all duration-700"
                             />
                             <div className="absolute inset-0 bg-primary/20 mix-blend-multiply rounded-3xl" />
                         </div>

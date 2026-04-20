@@ -31,7 +31,7 @@ export default function ApplySuccess() {
                 </p>
 
                 <p className="font-sans text-lg text-text-mid leading-relaxed mb-14">
-                    We review applications personally — you'll hear from us within 5–7 business days.<br />
+                    We review applications personally - you'll hear from us within 5–7 business days.<br />
                     If approved, we'll send you your profile link to preview and share.
                 </p>
 

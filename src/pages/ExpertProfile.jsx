@@ -33,7 +33,7 @@ function ContactForm({ expertName }) {
 
     const handleSend = (e) => {
         e.preventDefault();
-        const subject = encodeURIComponent(`Event Opportunity — Connect with ${expertName}`);
+        const subject = encodeURIComponent(`Event Opportunity - Connect with ${expertName}`);
         const body = encodeURIComponent(form.message);
         window.location.href = `mailto:ak@c4e.in?subject=${subject}&body=${body}`;
         setSent(true);
@@ -190,8 +190,8 @@ export default function ExpertProfile() {
     return (
         <div className="pt-24 min-h-screen bg-surface">
             <Helmet>
-                {/* Item 52: Dynamic meta title format: '[Name] — [Expertise] | Draupadi on the Dais' */}
-                <title>{expertData.name} — {expertData.tags?.[0] || expertData.title} | Draupadi on the Dais</title>
+                {/* Item 52: Dynamic meta title format: '[Name] - [Expertise] | Draupadi on the Dais' */}
+                <title>{expertData.name} - {expertData.tags?.[0] || expertData.title} | Draupadi on the Dais</title>
                 <meta name="description" content={`${expertData.name} is a ${expertData.title} at ${expertData.org}. View her full profile and speaking topics.`} />
                 <script type="application/ld+json">
                     {JSON.stringify({

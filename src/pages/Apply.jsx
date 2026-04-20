@@ -151,7 +151,7 @@ export default function Apply() {
         <div className="pt-32 pb-24 min-h-screen bg-background">
             <div className="max-w-3xl mx-auto px-6">
 
-                {/* Header — items 32 & 33 */}
+                {/* Header - items 32 & 33 */}
                 <div className="mb-16">
                     <h1 className="font-serif text-5xl md:text-6xl text-primary font-bold mb-6 tracking-tight">Take the stage.<br />Officially.</h1>
                     <div className="font-sans text-xl text-text-dark leading-relaxed mb-8 max-w-2xl space-y-4">
@@ -394,7 +394,7 @@ export default function Apply() {
 
                         <div className="space-y-4 pt-4">
                             <label className="block font-sans text-sm font-bold text-text-dark mb-1">Notable Appearances (Optional)</label>
-                            <p className="text-xs text-text-mid font-sans mt-0 mb-3">Past panels, publications, podcasts — helps with curation decision.</p>
+                            <p className="text-xs text-text-mid font-sans mt-0 mb-3">Past panels, publications, podcasts - helps with curation decision.</p>
                             <textarea rows={3} value={formData.notableAppearances} onChange={(e) => setFormData(prev => ({ ...prev, notableAppearances: e.target.value }))} className="w-full border border-border rounded-xl px-4 py-3 bg-surface focus:outline-none focus:border-primary/50 transition-colors resize-none font-sans" placeholder="Spoke at Global Startup Summit 2023..."></textarea>
                         </div>
 
