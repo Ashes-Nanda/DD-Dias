@@ -40,11 +40,11 @@ export default function Footer() {
                     </div>
                     <div className="flex space-x-6 text-text-mid">
                         {/* TODO: confirm DD Instagram URL before going live */}
-                        <a href="https://www.instagram.com/draupadionthedais/" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors" aria-label="Instagram">
+                        <a href="https://www.instagram.com/decodingdraupadi/" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors" aria-label="Instagram">
                             <Instagram size={24} />
                         </a>
                         {/* TODO: confirm DD LinkedIn URL before going live */}
-                        <a href="https://www.linkedin.com/company/draupadi-on-the-dais/" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors" aria-label="LinkedIn">
+                        <a href="https://www.linkedin.com/company/decodingdraupadi" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors" aria-label="LinkedIn">
                             <Linkedin size={24} />
                         </a>
                     </div>
