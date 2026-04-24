@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { HelmetProvider } from 'react-helmet-async';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import TopicMarquee from './components/TopicMarquee';
 
 // Pages
 import Home from './pages/Home';
@@ -42,6 +43,7 @@ function App() {
               <Route path="/admin" element={<Admin />} />
             </Routes>
           </main>
+          <TopicMarquee />
           <Footer />
         </div>
       </Router>

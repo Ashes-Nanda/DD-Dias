@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { Mic, Users, MessageSquare, Headphones, Building2 } from 'lucide-react';
 
-import dais3Image from '../assets/dais 3.png';
 import dais1Image from '../assets/dais 1.png';
 
 export function FeaturesSection() {
@@ -13,10 +12,10 @@ export function FeaturesSection() {
     useEffect(() => {
         supabase
             .from('experts')
-            .select('slug, full_name, title, tags, photo_url')
+            .select('slug, full_name, title, tags, photo_url, city, format')
             .eq('status', 'approved')
             .order('created_at', { ascending: false })
-            .limit(4)
+            .limit(6)
             .then(({ data }) => {
                 if (data && data.length > 0) {
                     setExperts(data.map(e => ({
@@ -25,6 +24,8 @@ export function FeaturesSection() {
                         title: e.title,
                         tags: e.tags || [],
                         photo: e.photo_url || null,
+                        city: e.city || null,
+                        format: e.format || null,
                     })));
                 }
             });
@@ -43,44 +44,75 @@ export function FeaturesSection() {
             <div className="max-w-7xl mx-auto space-y-32">
 
                 {/* Card 1: Who's on the Dais (Featured Voices) */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                    <div>
-                        <h3 className="font-serif text-4xl text-primary font-bold mb-6">Who's on the Dais?</h3>
-                        <p className="font-sans text-text-dark text-lg mb-8 leading-relaxed max-w-md">
+                <div className="flex flex-col items-center">
+                    <div className="text-center max-w-2xl mx-auto mb-12">
+                        <h3 className="font-serif text-4xl md:text-5xl text-primary font-bold mb-6">Who's on the Dais?</h3>
+                        <p className="font-sans text-text-dark text-lg leading-relaxed">
                             A selection of India's most credible women. Practitioners, researchers, executives, and public thinkers. Available for panels, media, and public conversation.
                         </p>
-                        <Button to="/directory" variant="secondary">Enter the Dais</Button>
                     </div>
-                    <div className="grid grid-cols-2 gap-4 relative group">
-                        {experts.length > 0 ? (
-                            experts.map((expert) => (
-                                <Link to={`/expert/${expert.slug}`} key={expert.slug} className="relative aspect-[4/5] overflow-hidden rounded-2xl group/card cursor-pointer">
-                                    {expert.photo ? (
-                                        <img src={expert.photo} alt={expert.name} className="object-cover w-full h-full transition-transform duration-700 group-hover/card:scale-105" />
-                                    ) : (
-                                        <div className="w-full h-full bg-primary-light flex items-center justify-center font-serif italic text-primary text-lg">No Photo</div>
-                                    )}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                                        <p className="text-white font-serif font-bold text-lg">{expert.name}</p>
-                                        <p className="text-white/80 font-sans text-sm">{expert.tags[0]}</p>
+
+                    <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {experts.length > 0
+                            ? experts.map((expert) => (
+                                <Link
+                                    to={`/expert/${expert.slug}`}
+                                    key={expert.slug}
+                                    className="bg-white border border-border rounded-2xl p-6 flex flex-col gap-4 hover:border-primary hover:shadow-md transition-all group/card"
+                                >
+                                    <div className="flex items-center gap-4">
+                                        {expert.photo ? (
+                                            <img src={expert.photo} alt={expert.name} className="w-14 h-14 rounded-full object-cover shrink-0" />
+                                        ) : (
+                                            <div className="w-14 h-14 rounded-full bg-primary-light text-primary font-serif font-bold text-xl flex items-center justify-center shrink-0">
+                                                {expert.name?.charAt(0) || 'D'}
+                                            </div>
+                                        )}
+                                        <div className="min-w-0">
+                                            <p className="font-serif font-bold text-lg text-text-dark truncate">{expert.name}</p>
+                                            <p className="font-sans text-sm text-text-mid truncate">{expert.title}</p>
+                                        </div>
                                     </div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {expert.tags.slice(0, 3).map((tag) => (
+                                            <span key={tag} className="bg-primary-light text-primary font-sans text-xs font-medium px-3 py-1 rounded-full">
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    {(expert.city || expert.format) && (
+                                        <div className="flex items-center gap-3 font-sans text-xs text-text-mid uppercase tracking-widest mt-auto pt-2 border-t border-border">
+                                            {expert.city && <span>{expert.city}</span>}
+                                            {expert.city && expert.format && <span aria-hidden>·</span>}
+                                            {expert.format && <span className="font-bold">{expert.format}</span>}
+                                        </div>
+                                    )}
                                 </Link>
                             ))
-                        ) : (
-                            /* Empty state while directory data loads */
-                            <div 
-                                className="col-span-2 aspect-[2/1] rounded-2xl bg-primary-light border border-primary/20 flex flex-col items-center justify-center gap-3 text-center px-6"
-                                style={{
-                                    backgroundImage: `url(${dais3Image})`,
-                                    backgroundSize: 'cover',
-                                    backgroundPosition: 'center'
-                                }}
-                            >
-                                <p className="font-serif text-2xl text-white font-bold">Voices launching soon.</p>
-                                <p className="font-sans text-sm text-white/90">Every profile is reviewed and verified before going live.</p>
-                                <Link to="/directory" className="font-sans text-sm text-white font-medium hover:underline mt-1">Browse the Dais →</Link>
-                            </div>
-                        )}
+                            : Array.from({ length: 6 }).map((_, i) => (
+                                <div
+                                    key={i}
+                                    aria-hidden
+                                    className="bg-white border border-border rounded-2xl p-6 flex flex-col gap-4"
+                                >
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-14 h-14 rounded-full bg-border/70 animate-pulse shrink-0" />
+                                        <div className="flex-1 space-y-2">
+                                            <div className="h-3 w-3/4 rounded-full bg-border/70 animate-pulse" />
+                                            <div className="h-3 w-1/2 rounded-full bg-border/50 animate-pulse" />
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <div className="h-5 w-16 rounded-full bg-border/60 animate-pulse" />
+                                        <div className="h-5 w-20 rounded-full bg-border/60 animate-pulse" />
+                                    </div>
+                                </div>
+                            ))}
+                    </div>
+
+                    <div className="mt-10 flex flex-col items-center gap-6">
+                        <p className="font-sans text-sm text-text-mid italic">Verified profiles going live soon.</p>
+                        <Button to="/directory" variant="secondary">Enter the Dais</Button>
                     </div>
                 </div>
 

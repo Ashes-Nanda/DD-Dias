@@ -19,7 +19,6 @@ export default function Navbar() {
                     <Link to="/directory" className="hover:text-primary transition-colors">Find Verified Speakers</Link>
                     <Link to="/apply" className="hover:text-primary transition-colors">Join the Dais</Link>
                     <Link to="/about" className="hover:text-primary transition-colors">About</Link>
-                    <Link to="/directory" className="hover:text-primary transition-colors">For Organisers</Link>
                 </div>
 
                 <div className="hidden md:block">
@@ -50,7 +49,6 @@ export default function Navbar() {
                         <Link to="/directory" onClick={() => setMobileMenuOpen(false)}>Find Verified Speakers</Link>
                         <Link to="/apply" onClick={() => setMobileMenuOpen(false)}>Join the Dais</Link>
                         <Link to="/about" onClick={() => setMobileMenuOpen(false)}>About</Link>
-                        <Link to="/directory" onClick={() => setMobileMenuOpen(false)}>For Organisers</Link>
                     </div>
                     <div className="mt-12">
                         <Button to="/directory" variant="primary" className="w-full py-4 text-center justify-center" onClick={() => setMobileMenuOpen(false)}>

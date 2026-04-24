@@ -3,7 +3,11 @@
     "allow": [
       "Bash(find 'C:/Users/Ashes Nanda/AppData/Local/Temp' -name *.jpg -o -name *.png -o -name *.jpeg -o -name *.webp)",
       "Bash(npx skills:*)",
-      "Bash(wsl python3:*)"
+      "Bash(wsl python3:*)",
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:5174/)",
+      "Bash(kill %1)",
+      "Bash(pkill -f 'vite')"
     ]
   }
 }

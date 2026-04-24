@@ -1,51 +1,108 @@
 import Button from './Button';
 
-export function ProtocolSection() {
+const SPEAKER_STEPS = [
+    {
+        number: '01',
+        title: 'Apply and be reviewed',
+        body: 'Tell us who you are and what you know. We review every application personally. Not everyone gets in. But if you have the expertise, you belong here.',
+    },
+    {
+        number: '02',
+        title: 'Go live on the Dais',
+        body: 'If approved, your profile goes live. You get a link. You own your visibility.',
+    },
+    {
+        number: '03',
+        title: 'Be the name they find',
+        body: 'When someone needs the right woman for the room, they find you here.',
+    },
+];
 
+const ORGANISER_STEPS = [
+    {
+        number: '01',
+        title: 'Find her by what she knows',
+        body: 'Search by expertise, city, industry, and format. Not by name recognition.',
+    },
+    {
+        number: '02',
+        title: 'Profiles built for decisions',
+        body: 'Structured information. Clear expertise. Past appearances. Enough to say yes.',
+    },
+    {
+        number: '03',
+        title: 'Go direct',
+        body: 'Her contact is right there. Reach out. No intermediary, no friction.',
+    },
+];
+
+function Step({ number, title, body, className = '' }) {
     return (
-        <section className="bg-surface relative w-full pt-24 pb-48 px-6">
-            <div className="w-full relative max-w-5xl mx-auto space-y-12">
+        <div className={`flex gap-6 ${className}`}>
+            <div className="font-serif font-bold text-primary text-5xl md:text-6xl leading-none shrink-0 w-20 md:w-24">
+                {number}
+            </div>
+            <div className="flex-1 pt-1">
+                <h4 className="font-serif font-bold text-2xl md:text-3xl text-text-dark leading-tight mb-3">
+                    {title}
+                </h4>
+                <p className="font-sans text-base md:text-lg text-text-dark leading-relaxed">
+                    {body}
+                </p>
+            </div>
+        </div>
+    );
+}
 
-                {/* Card 1 */}
-                <div className="protocol-card sticky top-24 bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-border flex flex-col justify-start gap-8 min-h-[280px] z-10 transition-transform">
-                    <div>
-                        <div className="font-mono text-sm tracking-widest text-text-mid mb-8 uppercase">Phase 01</div>
-                        {/* Item 1: No "directory" - updated to "the Dais" */}
-                        <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-primary font-bold max-w-2xl leading-tight">Apply to join the Dais</h2>
+function Heading({ children, className = '' }) {
+    return (
+        <div className={className}>
+            <h3 className="font-serif font-bold text-3xl md:text-4xl text-primary leading-tight inline-block">
+                {children}
+            </h3>
+            <div className="mt-3 w-16 h-[3px] bg-primary rounded-full" />
+        </div>
+    );
+}
+
+export function ProtocolSection() {
+    return (
+        <section className="bg-surface relative w-full py-24 md:py-32 px-6">
+            <div className="max-w-7xl mx-auto">
+                <div className="text-center mb-20 md:mb-24">
+                    <div className="font-sans text-xs md:text-sm font-bold tracking-[0.25em] uppercase text-primary mb-5">
+                        How It Works
                     </div>
-                    {/* Item 34: Updated Phase 01 body copy */}
-                    <p className="font-sans text-xl md:text-2xl text-text-dark font-medium max-w-xl mt-8">
-                        Submit your details. Tell us who you are, what you know, and where you want to be heard. It's free. It's selective. We review every application personally within 5–7 business days.
-                    </p>
+                    <h2 className="font-serif font-bold text-4xl md:text-5xl lg:text-6xl text-text-dark leading-tight max-w-4xl mx-auto">
+                        Built for both sides of the stage
+                    </h2>
                 </div>
 
-                {/* Card 2 */}
-                <div className="protocol-card sticky top-32 bg-primary-light rounded-3xl p-8 md:p-12 shadow-md border border-primary/20 flex flex-col justify-start gap-8 min-h-[280px] z-20 transition-transform">
-                    <div>
-                        <div className="font-mono text-sm tracking-widest text-primary mb-8 uppercase">Phase 02</div>
-                        <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-primary font-bold max-w-2xl leading-tight">Editorial Review & Approval</h2>
-                    </div>
-                    {/* Item 35: Updated Phase 02 body copy */}
-                    <p className="font-sans text-xl md:text-2xl text-text-dark font-medium max-w-xl mt-8">
-                        We don't approve everyone, and that's intentional. We look for genuine expertise, a credible track record, and a clear point of view. If you're approved, your profile goes live on the Dais immediately and we send you a link to share.
-                    </p>
-                </div>
+                {/*
+                    Desktop (lg+): two-column grid, rows auto-sized to the taller item
+                    in each pair so step 01 lines up with step 01, etc.
+                    Mobile: single column, all Speaker content first, then Organiser.
+                */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 lg:gap-x-20 gap-y-10 lg:gap-y-14">
+                    <Heading className="order-1 lg:order-none">For Speakers</Heading>
+                    <Heading className="order-6 lg:order-none">For Organisers</Heading>
 
-                {/* Card 3 */}
-                <div className="protocol-card sticky top-40 bg-primary rounded-3xl p-8 md:p-12 shadow-lg flex flex-col justify-start gap-8 min-h-[280px] z-30 transition-transform">
-                    <div>
-                        <div className="font-mono text-sm tracking-widest text-white/60 mb-8 uppercase">Phase 03</div>
-                        <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-white font-bold max-w-2xl leading-tight">Take the stage.</h2>
+                    <Step {...SPEAKER_STEPS[0]} className="order-2 lg:order-none" />
+                    <Step {...ORGANISER_STEPS[0]} className="order-7 lg:order-none" />
+
+                    <Step {...SPEAKER_STEPS[1]} className="order-3 lg:order-none" />
+                    <Step {...ORGANISER_STEPS[1]} className="order-8 lg:order-none" />
+
+                    <Step {...SPEAKER_STEPS[2]} className="order-4 lg:order-none" />
+                    <Step {...ORGANISER_STEPS[2]} className="order-9 lg:order-none" />
+
+                    <div className="order-5 lg:order-none pt-4">
+                        <Button to="/apply" variant="primary">Join the Dais</Button>
                     </div>
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mt-12">
-                        {/* Item 36: Updated Phase 03 body copy */}
-                        <p className="font-sans text-xl md:text-2xl text-primary-light font-medium max-w-xl">
-                            Organisers, journalists, and companies search the Dais when they need the right woman for the room. They find you. They reach out. The excuse that they couldn't find a qualified woman is officially removed.
-                        </p>
-                        <Button to="/apply" variant="secondary" className="bg-white border-white text-primary">Apply Now</Button>
+                    <div className="order-10 lg:order-none pt-4">
+                        <Button to="/directory" variant="secondary">Find Verified Speakers</Button>
                     </div>
                 </div>
-
             </div>
         </section>
     );

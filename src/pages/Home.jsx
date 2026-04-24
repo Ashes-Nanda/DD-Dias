@@ -1,14 +1,12 @@
-import React from 'react';
 import Button from '../components/Button';
-import { cn } from '../lib/utils';
 import { Link } from 'react-router-dom';
 
 import { FeaturesSection } from '../components/FeaturesSection';
 import { PhilosophySection } from '../components/PhilosophySection';
 import { ProtocolSection } from '../components/ProtocolSection';
+import HeroCarousel from '../components/HeroCarousel';
 
-import dais4Image from '../assets/dais 4.png';
-import dais2Image from '../assets/dais 2.png';
+import whatIsDotdImage from '../assets/what is dotd.png';
 export default function Home() {
     return (
         <div className="w-full relative bg-background">
@@ -54,15 +52,7 @@ export default function Home() {
                     </div>
 
                     <div className="relative mt-8 lg:mt-0 w-full hidden md:block lg:h-full">
-                        <div className="w-full h-full aspect-[4/3] sm:aspect-square lg:aspect-auto rounded-[2.5rem] overflow-hidden relative shadow-lg">
-                            <img
-                                src={dais4Image}
-                                alt="Draupadi on the Dais"
-                                className="w-full h-full object-cover"
-                            />
-                            {/* Subtle overlay for styling integration */}
-                            <div className="absolute inset-0 bg-primary/10 mix-blend-multiply rounded-[2.5rem]" />
-                        </div>
+                        <HeroCarousel />
 
                         {/* Decorative floating stats box */}
                         <div className="absolute -bottom-8 -left-8 bg-surface p-6 rounded-3xl border border-border shadow-sm hidden lg:block z-20">
@@ -79,7 +69,7 @@ export default function Home() {
                     <div className="lg:w-1/2 w-full order-2 lg:order-1">
                         <div className="aspect-[16/9] lg:aspect-square rounded-3xl overflow-hidden relative shadow-md">
                             <img
-                                src={dais2Image}
+                                src={whatIsDotdImage}
                                 alt="Indian woman speaking at a panel"
                                 className="w-full h-full object-cover transition-all duration-700"
                             />
